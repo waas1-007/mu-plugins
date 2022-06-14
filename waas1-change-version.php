@@ -266,7 +266,15 @@ add_filter( 'wp_prepare_themes_for_js', function( $prepared_themes ){
 											), $changeVersion_url
 										);
 				$prepared_themes[$key]['waas1_repo_dirs'] = $dirs;
-				if( version_compare($dirs[0], $theme['version'], '>' ) ){
+				
+				if( $dirs[0] == '999.999.999.999.999' ){
+					$gitRepoThemeVersion = $dirs[1];
+				}else{
+					$gitRepoThemeVersion = $dirs[0];
+				}
+				
+				
+				if( version_compare($gitRepoThemeVersion, $theme['version'], '>' ) ){
 					$changeVersionText = '<div class="change-repo-version change-repo-important"><a href="' . esc_url( $changeVersion_url ) . '">Change Version (New Version Available)</a></div>';
 				}else{
 					$changeVersionText = '<div class="change-repo-version"><a href="' . esc_url( $changeVersion_url ) . '">Change Version</a></div>';
@@ -355,8 +363,13 @@ add_filter( 'plugin_action_links', function ( $actions, $plugin_file, $plugin_da
 		return $actions;
 	}
 	
+	if( $dirs[0] == '999.999.999.999.999' ){
+		$gitRepoPluginVersion = $dirs[1];
+	}else{
+		$gitRepoPluginVersion = $dirs[0];
+	}
 	
-	if( version_compare($dirs[0], $plugin_data['Version'], '>' ) ){
+	if( version_compare($gitRepoPluginVersion, $plugin_data['Version'], '>' ) ){
 		$changeVersionText = '<a style="color:red;" href="' . esc_url( $changeVersion_url ) . '">Change Version (New Version Available)</a>';
 	}else{
 		$changeVersionText = '<a href="' . esc_url( $changeVersion_url ) . '">Change Version</a>';
