@@ -96,6 +96,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 //allow only superduper user to access user profile application field:
 ////-----------////
 
+/*
 add_filter( 'wp_is_application_passwords_available', 'waas1_007_wp_is_application_passwords_available' );
 function waas1_007_wp_is_application_passwords_available(){
 	
@@ -109,14 +110,25 @@ function waas1_007_wp_is_application_passwords_available(){
 		return true;
 	}
 	
-	//allow for superduper
-	$currentLoggedInUser = wp_get_current_user();
-	if( $currentLoggedInUser->data->user_login == 'superduper' ){
-		return true;
-	}
+	echo '<pre>';
+	print_r( $GLOBALS['pagenow'] );
+	echo '</pre>';
+	die;
+	
+	//$currentUserId = get_current_user_id();
+
+
+	
+		//$currentLoggedInUser = wp_get_current_user();
+		//if( $currentLoggedInUser->data->user_login == 'superduper' ){
+		//	return true;
+		//}
+	
+	
+	
 
 	return false;
 }
-
+*/
 
 ?>
