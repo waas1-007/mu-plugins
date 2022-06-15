@@ -98,6 +98,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 add_action( 'admin_init', function(){
+	//disable application password but not for superduper user and wpcli
 	add_filter( 'wp_is_application_passwords_available', 'waas1_007_wp_is_application_passwords_available' );
 });
 
