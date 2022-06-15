@@ -66,6 +66,6 @@ add_filter( 'admin_email_check_interval', '__return_false' );
 
 
 //disable Application Passwords from -> users edit screen.
-add_filter( 'wp_is_application_passwords_available', '__return_false' );
+//add_filter( 'wp_is_application_passwords_available', '__return_false' );
 
 ?>
