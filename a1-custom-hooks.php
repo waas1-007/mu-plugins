@@ -90,23 +90,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 
+
+
 ////-----------////
 //allow only superduper user to access user profile application field:
 ////-----------////
+
 add_filter( 'wp_is_application_passwords_available', 'waas1_007_wp_is_application_passwords_available' );
 function waas1_007_wp_is_application_passwords_available(){
+	
+	//make sure this process only on admin side.
+	if( !is_admin() ){
+		return false;
+	}
+	
 	//if the call is from "wp-cli" allow the call.
 	if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		return true;
 	}
 	
-	//if the current loggedin user is superduper allow the call.
+	//allow for superduper
 	$currentLoggedInUser = wp_get_current_user();
 	if( $currentLoggedInUser->data->user_login == 'superduper' ){
 		return true;
 	}
-	
+
 	return false;
 }
+
 
 ?>
