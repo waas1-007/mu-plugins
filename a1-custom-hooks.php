@@ -96,8 +96,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 //allow only superduper user to access user profile application field:
 ////-----------////
 
-/*
-add_filter( 'wp_is_application_passwords_available', 'waas1_007_wp_is_application_passwords_available' );
+
+add_action( 'admin_init', function(){
+	add_filter( 'wp_is_application_passwords_available', 'waas1_007_wp_is_application_passwords_available' );
+});
+
+
+
+
+
+//this hook must be initalized using admin_init
 function waas1_007_wp_is_application_passwords_available(){
 	
 	//make sure this process only on admin side.
@@ -110,25 +118,17 @@ function waas1_007_wp_is_application_passwords_available(){
 		return true;
 	}
 	
-	echo '<pre>';
-	print_r( $GLOBALS['pagenow'] );
-	echo '</pre>';
-	die;
 	
-	//$currentUserId = get_current_user_id();
+	$currentUserId = get_current_user_id();
 
-
+	$currentLoggedInUser = wp_get_current_user();
+	if( $currentLoggedInUser->data->user_login == 'superduper' ){
+		return true;
+	}
 	
-		//$currentLoggedInUser = wp_get_current_user();
-		//if( $currentLoggedInUser->data->user_login == 'superduper' ){
-		//	return true;
-		//}
-	
-	
-	
-
+	//otherwise return false;
 	return false;
 }
-*/
+
 
 ?>
