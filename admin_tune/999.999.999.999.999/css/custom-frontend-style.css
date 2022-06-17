@@ -1,0 +1,56 @@
+/* start css for checkout page */
+body.woocommerce-checkout .woocommerce-checkout-review-order .woocommerce-checkout-review-order-table .product-total {
+	text-align: left;
+}
+
+body.woocommerce-checkout .woocommerce-checkout-review-order .woocommerce-checkout-review-order-table td {
+	text-align: left;
+}
+
+body.woocommerce-checkout .woocommerce-checkout-review-order .woocommerce-checkout-review-order-table th {
+	padding-right: 0px;
+}
+
+body.woocommerce-checkout .woocommerce-checkout-review-order .woocommerce-checkout-review-order-table td.product-name {
+	text-align: right;
+}
+/* end css for checkout page */
+
+/* start css for adminbar */
+li#wp-admin-bar-search {
+    display: none;
+}
+
+li#wp-admin-bar-wu-my-account {
+    display: none;
+}
+
+li#wp-admin-bar-litespeed-menu {
+    display: none;
+}
+/* end css for adminbar */
+
+#wp-admin-bar-flatsome_panel, #wp-admin-bar-flatsome-activate {
+	display: none;
+}
+
+body.woocommerce-checkout #billing_email { display: block !important; }
+
+.wrapup_order_bump .wps_ubo_price_html_for_variation {
+	display: none;
+}
+.wrapup_order_bump .wps_ubo_bump_add_to_cart_button.button {
+	display: none;
+}
+
+#wps_upsell_offer_main_id_1 .wps_upsell_offer_arrow img {
+    top: 5px;
+	left: 5px;
+    position: relative;
+}
+body.rtl #wps_upsell_offer_main_id_1 .wps_upsell_offer_arrow {
+    transform: scale(1) !important;
+}
+body.rtl #wps_upsell_offer_main_id_1 .wps_upsell_bump_checkbox_container {
+    margin-left: 5px;
+}
