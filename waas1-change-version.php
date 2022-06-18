@@ -275,7 +275,7 @@ add_filter( 'wp_prepare_themes_for_js', function( $prepared_themes ){
 				
 				
 				if( version_compare($gitRepoThemeVersion, $theme['version'], '>' ) ){
-					$changeVersionText = '<div class="change-repo-version change-repo-important"><a href="' . esc_url( $changeVersion_url ) . '">Change Version (New Version Available)</a></div>';
+					$changeVersionText = '<div class="change-repo-version change-repo-important"><a href="' . esc_url( $changeVersion_url ) . '">New Version Available</a></div>';
 				}else{
 					$changeVersionText = '<div class="change-repo-version"><a href="' . esc_url( $changeVersion_url ) . '">Change Version</a></div>';
 				}
@@ -370,7 +370,7 @@ add_filter( 'plugin_action_links', function ( $actions, $plugin_file, $plugin_da
 	}
 	
 	if( version_compare($gitRepoPluginVersion, $plugin_data['Version'], '>' ) ){
-		$changeVersionText = '<a style="color:red;" href="' . esc_url( $changeVersion_url ) . '">Change Version (New Version Available)</a>';
+		$changeVersionText = '<a style="color:red;" href="' . esc_url( $changeVersion_url ) . '">New Version Available</a>';
 	}else{
 		$changeVersionText = '<a href="' . esc_url( $changeVersion_url ) . '">Change Version</a>';
 	}
@@ -869,6 +869,7 @@ function waas1_change_version_versions_select( $type, $args ){
 	
 	$dirs = waas1_list_repo_version( $type, $args );
 	
+	
 	$html = '<ul class="wpr-version-list">';
 	
 	if( $type == 'plugin' ){
@@ -879,9 +880,19 @@ function waas1_change_version_versions_select( $type, $args ){
 				 $html .= '<label>';
 				   $html .= '<input type="radio" value="' .$dir. '" name="new_version">';
 				   $html .=  $dir;
+				   
+		
+					if( $dir == '999.999.999.999.999' ){
+						$result = readlink( WP_PLUGIN_DIR.'/'.$args['slug'] );
+						if( str_contains($result, '999.999.999.999.999') ) { 
+							$html .= '<span class="current-version">Linked</span>';
+						}
+					}
+	
 				   if( $args['installed_version'] == $dir ){
 					   $html .= '<span class="current-version">Installed Version</span>';
 				   }
+				   
 				 $html .= '</label>';
 			   $html .= '</li>';
 		   }
@@ -898,6 +909,14 @@ function waas1_change_version_versions_select( $type, $args ){
 				 $html .= '<label>';
 				   $html .= '<input type="radio" value="' .$dir. '" name="new_version">';
 				   $html .=  $dir;
+				   
+				   if( $dir == '999.999.999.999.999' ){
+						$result = readlink( WP_CONTENT_DIR.get_theme_roots().'/'.$args['slug'] );
+						if( str_contains($result, '999.999.999.999.999') ) { 
+							$html .= '<span class="current-version">Linked</span>';
+						}
+					}
+					
 				   if( $args['installed_version'] == $dir ){
 					   $html .= '<span class="current-version">Installed Version</span>';
 				   }
