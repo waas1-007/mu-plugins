@@ -23,6 +23,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 // add links/menus to the admin bar
 add_action( 'admin_bar_menu', function(){
 	
+	
+	//if the current logged in user is not superduper do not show the node id and site id
+	$currentLoggedInUser = wp_get_current_user();
+	if( $currentLoggedInUser->data->user_login != 'superduper' ){
+		return;
+	}
+	
+	
+	
 	global $wp_admin_bar;
 	
 	$wp_admin_bar->add_menu( array(
