@@ -23,8 +23,8 @@ add_action( 'waas1_tenant_post_created', function( $assoc_args ){ //hook as soon
 	//set the default site language to arabic.
 	update_option( 'WPLANG', 'ar' );
 	
-	//empty new_admin_email if found any
-	update_option( 'new_admin_email', '' );
+	//delete new_admin_email if found any
+	delete_option( 'new_admin_email');
 	
 	//rewite permalinks:
 	flush_rewrite_rules();
