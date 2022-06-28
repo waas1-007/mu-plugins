@@ -16,8 +16,9 @@ function _filter_all_plugins($get_plugins)
                 $plugins_allowed[$key] = $plugin;
             }
         }
+        
         foreach (get_option('active_plugins') as  $plugin) {
-            if (!in_array($plugin, $plan['plugins']) or strpos($plugin, 'shahbandr') === false) {
+            if (!in_array($plugin, $plan['plugins']) and strpos($plugin, 'shahbandr') === false) {
                 deactivate_plugins("/$plugin");
             }
         }
@@ -29,11 +30,10 @@ function _filter_all_plugins($get_plugins)
 function filter_all_themes($get_themes)
 {
 
-   
+
     $themes_allowed = [];
 
     $plan = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plans/' . WAAS1_RESTRICTION_GROUP_ID . '.json'), true);
-
     if (isset($plan['themes'])) {
         foreach ($get_themes as $key =>  $theme) {
             if (in_array($key, $plan['themes'])) {
@@ -46,7 +46,7 @@ function filter_all_themes($get_themes)
 }
 
 if (WAAS1_RESTRICTION_GROUP_ID != 1) {
-    add_filter('all_plugins', '_filter_all_plugins', 10, 1);
+    add_filter('all_plugins', '_filter_all_plugins', 99, 1);
 
-    add_filter( 'all_themes', 'filter_all_themes', 11, 1);
+    add_filter( 'wp_prepare_themes_for_js', 'filter_all_themes', 99, 2);
 }
