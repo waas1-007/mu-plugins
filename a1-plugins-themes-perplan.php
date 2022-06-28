@@ -29,13 +29,14 @@ function _filter_all_plugins($get_plugins)
 function filter_all_themes($get_themes)
 {
 
+   
     $themes_allowed = [];
 
     $plan = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plans/' . WAAS1_RESTRICTION_GROUP_ID . '.json'), true);
 
-    if (isset($plan['plugins'])) {
+    if (isset($plan['themes'])) {
         foreach ($get_themes as $key =>  $theme) {
-            if (in_array($key, $plan['plugins'])) {
+            if (in_array($key, $plan['themes'])) {
                 $themes_allowed[$key] = $theme;
             }
         }
@@ -47,5 +48,5 @@ function filter_all_themes($get_themes)
 if (WAAS1_RESTRICTION_GROUP_ID != 1) {
     add_filter('all_plugins', '_filter_all_plugins', 10, 1);
 
-    add_filter('all_themes', 'filter_all_themes', 11, 1);
+    add_filter( 'all_themes', 'filter_all_themes', 11, 1);
 }
