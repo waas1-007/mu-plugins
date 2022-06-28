@@ -1,7 +1,6 @@
 <?php
 if (WAAS1_RESTRICTION_GROUP_ID != 1) {
 
-    require_once __DIR__ . '/rebranding/rebranding.php';
     add_action('admin_init', function () {
 
         remove_submenu_page('options-general.php', 'uip-styles');

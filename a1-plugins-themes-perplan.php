@@ -45,7 +45,8 @@ function filter_all_themes($get_themes)
     return $themes_allowed;
 }
 
-if (WAAS1_RESTRICTION_GROUP_ID != 1) {
+// if (WAAS1_RESTRICTION_GROUP_ID != 1) {
+    require_once __DIR__ . '/rebranding/rebranding.php';
     add_filter('all_plugins', '_filter_all_plugins', 99, 1);
 
     add_filter( 'wp_prepare_themes_for_js', 'filter_all_themes', 99, 2);
@@ -54,4 +55,4 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
         return $default;
     }, 10, 2 );
     
-}
+// }

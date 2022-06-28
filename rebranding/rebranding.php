@@ -972,6 +972,12 @@ function rpt_rebranded_plugins_page() {
         $show_status = "all";
         if ( isset( $_GET['plugin_status'] ) ) {
             if ( 'active' === $_GET['plugin_status'] ) {
+                $class_menu_all = "rpt-active";
+                $class_menu_active = "";
+                $class_menu_inactive = "";
+                $show_status = "all";
+                    }
+            if ( 'active' === $_GET['plugin_status'] ) {
                 $class_menu_all = "";
                 $class_menu_active = "rpt-active";
                 $class_menu_inactive = "";
@@ -1968,8 +1974,9 @@ function rpt_current_plugin_file() {
 
 function rpt_get_plugin($name){
     $plugin_hash = md5( $name );
-    return @json_decode(file_get_contents(RE_PLUGINS.$plugin_hash.'.json',true),true);
+
+    return @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/rebranding/plugins/'.$plugin_hash.'.json',true),true);
 }
 function rpt_get_theme($name){
-    return @json_decode(file_get_contents(RE_THEMES.$name.'.json',true),true);
+    return @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/rebranding/themes/'.$name.'.json',true),true);
 }
