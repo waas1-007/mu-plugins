@@ -77,6 +77,7 @@ function june2720221012_after_switch_theme(){
 		'oceanwp' 		=> array( 'ocean-extra/ocean-extra.php' ),
 		'ignition' 		=> array( 'ignition/ignition.php' ),
 		'storefront' 	=> array( 'storefront-powerpack/storefront-powerpack.php', 'storefront-title-toggle/storefront-title-toggle.php' ),
+		//'avada' 	=> array( ),
 	);
 	
 	
