@@ -49,4 +49,9 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
     add_filter('all_plugins', '_filter_all_plugins', 99, 1);
 
     add_filter( 'wp_prepare_themes_for_js', 'filter_all_themes', 99, 2);
+    add_filter( 'show_advanced_plugins', function ( $default, $type ) {
+        if ( $type == 'mustuse' ) return false; // Hide Must-Use
+        return $default;
+    }, 10, 2 );
+    
 }
