@@ -976,14 +976,12 @@ function rpt_rebranded_plugins_page() {
                 $class_menu_active = "";
                 $class_menu_inactive = "";
                 $show_status = "all";
-                    }
-            if ( 'active' === $_GET['plugin_status'] ) {
+               }elseif ( 'active' === $_GET['plugin_status'] ) {
                 $class_menu_all = "";
                 $class_menu_active = "rpt-active";
                 $class_menu_inactive = "";
                 $show_status = "active";
-            }
-            if ( 'inactive' === $_GET['plugin_status'] ) {
+            }elseif ( 'inactive' === $_GET['plugin_status'] ) {
                 $class_menu_all = "";
                 $class_menu_active = "";
                 $class_menu_inactive = "rpt-active";
@@ -998,7 +996,7 @@ function rpt_rebranded_plugins_page() {
         if ( ! function_exists( 'get_plugins' ) ) {
             require_once ABSPATH . 'wp-admin/includes/plugin.php';
         }
-        $plugins = get_plugins();
+        $plugins = apply_filters( 'all_plugins', get_plugins() ); 
         $plugins_to_show = Array();
         $categories = Array();
         foreach ( $plugins as $plugin_file => $plugin_data ) {
