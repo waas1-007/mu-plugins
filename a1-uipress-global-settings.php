@@ -3,12 +3,12 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
 
     add_action('admin_init', function () {
 
-        remove_submenu_page('options-general.php', 'uip-styles');
-        remove_submenu_page('options-general.php', 'uip-settings');
-        if (isset($_GET['page']) and in_array($_GET['page'], ['uip-styles', 'uip-settings'])) {
-            wp_redirect(admin_url());
-            exit;
-        }
+        // remove_submenu_page('options-general.php', 'uip-styles');
+        // remove_submenu_page('options-general.php', 'uip-settings');
+        // if (isset($_GET['page']) and in_array($_GET['page'], ['uip-styles', 'uip-settings'])) {
+        //     wp_redirect(admin_url());
+        //     exit;
+        // }
     }, 999);
     
 }
