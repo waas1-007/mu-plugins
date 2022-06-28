@@ -1,1 +1,1 @@
-{"name":"basic","id":2,"status":0,"plugins":[],"themes":[]}
+{"name":"basic","id":2,"status":"1","plugins":["affiliate-wp\/affiliate-wp.php","affiliatewp-affiliate-portal\/affiliatewp-affiliate-portal.php","affiliate-wp-recurring-referrals\/affiliate-wp-recurring-referrals.php","ali2woo\/ali2woo.php","appmysite\/appmysite.php","autoptimize\/autoptimize.php"],"themes":["Flatsome","Shopmenia"]}
