@@ -1860,7 +1860,7 @@ function rpt_add_edit_plugin_link( $actions, $plugin_file ) {
  * @return string
  */
 function rpt_get_plugin_default_image_url() {
-    return plugin_dir_url( __FILE__ ) . 'images/plugin-default.png';
+    return WPMU_PLUGIN_URL. '/rebranding/images/plugin-default.png';
 }
 
 /**
@@ -1868,7 +1868,7 @@ function rpt_get_plugin_default_image_url() {
  * @return string
  */
 function rpt_get_theme_default_image_url() {
-    return plugin_dir_url( __FILE__ ) . 'images/theme-default.png';
+    return WPMU_PLUGIN_URL. '/rebranding/images/theme-default.png';
 }
 
 /**
