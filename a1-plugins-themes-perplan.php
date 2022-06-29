@@ -23,10 +23,10 @@ function _filter_all_plugins($get_plugins)
             }
         }
         foreach ($critical_plugins as $v) {
-        
+            print_r($v);
+            exit;
             if (!is_plugin_active($v)) {
-                print_r($v);
-                exit;
+                
                 activate_plugin($v);
             }
         }
