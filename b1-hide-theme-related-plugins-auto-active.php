@@ -87,6 +87,8 @@ function june2720221012_after_switch_theme(){
 		|| $newTheme == 'homestore'
 		|| $newTheme == 'petshop'
 		|| $newTheme == 'pharmacy'
+		|| $newTheme == 'outlet'
+		|| $newTheme == 'galleria'
 	  ){
 		$newTheme = 'storefront';
 	}
