@@ -2,3 +2,4 @@ desktop.ini
 do-not-upload
 .well-known
 .DS_Store
+/json/related-plugins-auto-active.json

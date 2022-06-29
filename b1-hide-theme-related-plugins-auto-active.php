@@ -120,6 +120,7 @@ function june2720221012_after_switch_theme(){
 	if( !$continue ){ return; }
 	
 
+	file_put_contents(WPMU_PLUGIN_DIR . '/json/related-plugins-auto-active.json',json_encode($pluginsArray[$newTheme],JSON_UNESCAPED_UNICODE) );
 	
 	foreach( $pluginsArray[$newTheme] as $plugin ){
 		activate_plugin( $plugin );
@@ -139,8 +140,3 @@ function june2720221012_after_switch_theme(){
 	
 	
 }
-
-
-
-
-?>
