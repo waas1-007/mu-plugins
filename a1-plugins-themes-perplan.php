@@ -12,18 +12,21 @@ function _filter_all_plugins($get_plugins)
 
     if (isset($plan['plugins'])) {
         foreach ($get_plugins as $key =>  $plugin) {
-            if ((in_array($key, $plan['plugins']) and !in_array($key, $critical_plugins)) or strpos($key, 'shahbandr') !== false) {
+            if (in_array($key, $plan['plugins']) and !in_array($key, $critical_plugins)) {
                 $plugins_allowed[$key] = $plugin;
             }
         }
 
         foreach (get_option('active_plugins') as  $plugin) {
-            if (!in_array($plugin, $plan['plugins']) and !in_array($plugin, $critical_plugins) and strpos($plugin, 'shahbandr') === false) {
+            if (!in_array($plugin, $plan['plugins']) and !in_array($plugin, $critical_plugins)) {
                 deactivate_plugins("/$plugin");
             }
         }
         foreach ($critical_plugins as $v) {
+        
             if (!is_plugin_active($v)) {
+                print_r($v);
+                exit;
                 activate_plugin($v);
             }
         }
