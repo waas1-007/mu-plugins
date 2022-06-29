@@ -11,7 +11,7 @@ function _filter_all_plugins($get_plugins)
     $critical_plugins = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/critical_plugins.json'), true);
     $related_plugins_auto_active = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/related-plugins-auto-active.json'), true);
 
-    $critical_plugins = array_merge($critical_plugins, $related_plugins_auto_active);
+    $critical_plugins = array_merge($critical_plugins, (is_array($related_plugins_auto_active) ? $related_plugins_auto_active :[]));
     if (isset($plan['plugins'])) {
         foreach ($get_plugins as $key =>  $plugin) {
             if (in_array($key, $plan['plugins']) and !in_array($key, $critical_plugins)) {
