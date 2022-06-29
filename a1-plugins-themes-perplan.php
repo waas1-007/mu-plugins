@@ -22,9 +22,10 @@ function _filter_all_plugins($get_plugins)
                 deactivate_plugins("/$plugin");
             }
         }
+        print_r($critical_plugins);
+        exit;
         foreach ($critical_plugins as $v) {
-            print_r($v);
-            exit;
+           
             if (!is_plugin_active($v)) {
                 
                 activate_plugin($v);
