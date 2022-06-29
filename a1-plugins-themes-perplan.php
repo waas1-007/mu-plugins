@@ -11,16 +11,16 @@ function _filter_all_plugins($get_plugins)
     $critical_plugins = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plugins/critical_plugins.json'), true);
     $plugins_hidden = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plugins/plugins_hidden.json'), true);
 
-    $critical_plugins = array_merge($critical_plugins, (is_array($plugins_hidden) ? $plugins_hidden :[]));
+    $plugins_hidden = array_merge($critical_plugins, (is_array($plugins_hidden) ? $plugins_hidden :[]));
     if (isset($plan['plugins'])) {
         foreach ($get_plugins as $key =>  $plugin) {
-            if (in_array($key, $plan['plugins']) and !in_array($key, $critical_plugins)) {
+            if (in_array($key, $plan['plugins']) and !in_array($key, $plugins_hidden)) {
                 $plugins_allowed[$key] = $plugin;
             }
         }
 
         foreach (get_option('active_plugins') as  $plugin) {
-            if (!in_array($plugin, $plan['plugins']) and !in_array($plugin, $critical_plugins)) {
+            if (!in_array($plugin, $plan['plugins']) and !in_array($plugin, $plugins_hidden)) {
                 deactivate_plugins("/$plugin");
             }
         }
