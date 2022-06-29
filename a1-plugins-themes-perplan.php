@@ -8,7 +8,7 @@ function _filter_all_plugins($get_plugins)
     $plugins_allowed = [];
 
     $plan = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plans/' . WAAS1_RESTRICTION_GROUP_ID . '.json'), true);
-    $critical_plugins = @json_decode(file_get_contents(DIR_PLANS . '/../critical_plugins.json'), true);
+    $critical_plugins = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/critical_plugins.json'), true);
 
     if (isset($plan['plugins'])) {
         foreach ($get_plugins as $key =>  $plugin) {
@@ -22,8 +22,6 @@ function _filter_all_plugins($get_plugins)
                 deactivate_plugins("/$plugin");
             }
         }
-        print_r($critical_plugins);
-        exit;
         foreach ($critical_plugins as $v) {
            
             if (!is_plugin_active($v)) {
