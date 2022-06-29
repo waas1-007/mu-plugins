@@ -8,10 +8,10 @@ function _filter_all_plugins($get_plugins)
     $plugins_allowed = [];
 
     $plan = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plans/' . WAAS1_RESTRICTION_GROUP_ID . '.json'), true);
-    $critical_plugins = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/critical_plugins.json'), true);
-    $related_plugins_auto_active = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/related-plugins-auto-active.json'), true);
+    $critical_plugins = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plugins/critical_plugins.json'), true);
+    $plugins_hidden = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plugins/plugins_hidden.json'), true);
 
-    $critical_plugins = array_merge($critical_plugins, (is_array($related_plugins_auto_active) ? $related_plugins_auto_active :[]));
+    $critical_plugins = array_merge($critical_plugins, (is_array($plugins_hidden) ? $plugins_hidden :[]));
     if (isset($plan['plugins'])) {
         foreach ($get_plugins as $key =>  $plugin) {
             if (in_array($key, $plan['plugins']) and !in_array($key, $critical_plugins)) {
