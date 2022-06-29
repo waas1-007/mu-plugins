@@ -9,16 +9,17 @@ function _filter_all_plugins($get_plugins)
     $active_plugins = [];
 
     $plan = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plans/' . WAAS1_RESTRICTION_GROUP_ID . '.json'), true);
+    $critical_plugins = @json_decode(file_get_contents(DIR_PLANS . '/../critical_plugins.json'), true);
 
     if (isset($plan['plugins'])) {
         foreach ($get_plugins as $key =>  $plugin) {
-            if (in_array($key, $plan['plugins']) or strpos($key, 'shahbandr') !== false) {
+            if (in_array($key, $plan['plugins']) and (!in_array($key,$critical_plugins) or strpos($key, 'shahbandr') !== false)) {
                 $plugins_allowed[$key] = $plugin;
             }
         }
         
         foreach (get_option('active_plugins') as  $plugin) {
-            if (!in_array($plugin, $plan['plugins']) and strpos($plugin, 'shahbandr') === false) {
+            if (!in_array($plugin, $plan['plugins']) and !in_array($plugin,$critical_plugins) and strpos($plugin, 'shahbandr') === false) {
                 deactivate_plugins("/$plugin");
             }
         }
