@@ -966,17 +966,9 @@ function rpt_rebranded_plugins_page() {
         </style>
         <?php
 
-        $class_menu_all = "rpt-active";
-        $class_menu_active = "";
-        $class_menu_inactive = "";
-        $show_status = "all";
+       
         if ( isset( $_GET['plugin_status'] ) ) {
             if ( 'active' === $_GET['plugin_status'] ) {
-                $class_menu_all = "rpt-active";
-                $class_menu_active = "";
-                $class_menu_inactive = "";
-                $show_status = "all";
-               }elseif ( 'active' === $_GET['plugin_status'] ) {
                 $class_menu_all = "";
                 $class_menu_active = "rpt-active";
                 $class_menu_inactive = "";
@@ -987,6 +979,11 @@ function rpt_rebranded_plugins_page() {
                 $class_menu_inactive = "rpt-active";
                 $show_status = "inactive";
             }
+        }else{
+            $class_menu_all = "rpt-active";
+            $class_menu_active = "";
+            $class_menu_inactive = "";
+            $show_status = "all";
         }
 
         if ( isset( $_GET['category'] ) ) {
@@ -1000,9 +997,12 @@ function rpt_rebranded_plugins_page() {
         $plugins_to_show = Array();
         $categories = Array();
         foreach ( $plugins as $plugin_file => $plugin_data ) {
+            if (isset($_GET['plugin_status'])and in_array($_GET['plugin_status'],['active','inactive']) AND !$plugin_data['hidden']) {
+                continue;
+            }
             $rebranded_data = rpt_get_plugin(  $plugin_file );
             if ( is_array( $rebranded_data ) && array_key_exists( 'plugin_categories', $rebranded_data ) && ! empty( $rebranded_data['plugin_categories'] ) ) {
-
+                
                 $categories_string = $rebranded_data['plugin_categories'];
                 $exploded_categories = explode( ",", $categories_string );
                 $exploded_categories = array_map( 'trim', $exploded_categories );
@@ -1077,6 +1077,9 @@ function rpt_rebranded_plugins_page() {
                 <?php
                 $number = 1;
                 foreach ( $plugins_to_show as $plugin_file => $plugin_data ) {
+                    if (isset($_GET['plugin_status'])and in_array($_GET['plugin_status'],['active','inactive']) AND !$plugin_data['hidden']) {
+                        continue;
+                    }
                     $rebranded_data = rpt_get_plugin(  $plugin_file );
                  
                     $plugin_name =  $plugin_data['Name'];
@@ -1084,7 +1087,7 @@ function rpt_rebranded_plugins_page() {
                     $plugin_image_url = rpt_get_plugin_default_image_url();
                     $plugin_description = "";
                     $plugin_categories = esc_html__( 'None', 'rpt_rebranding' );
-
+                    
                     if ( is_array( $rebranded_data ) ) {
                         if ( array_key_exists( 'plugin_name', $rebranded_data ) && ! empty( $rebranded_data['plugin_name'] ) ) {
                             $plugin_name = $rebranded_data['plugin_name'];
@@ -1144,15 +1147,27 @@ function rpt_rebranded_plugins_page() {
                             </div>
                             <div class="rpt-plugin-box-top-right">
                                 <?php
-                                if ( ! is_plugin_active( $plugin_file ) ) {
-                                    ?>
-                                    <a href="<?php echo esc_url( $activate_link ); ?>" class="button button-primary"><?php esc_html_e( 'Activate', 'rpt_rebranding' ); ?></a>
-                                    <?php
-                                } else {
-                                    ?>
-                                    <a href="<?php echo esc_url( $deactivate_link ); ?>" class="button button-primary"><?php esc_html_e( 'Deactivate', 'rpt_rebranding' ); ?></a>
-                                    <?php
-                                }
+                                if ($plugin_data['hidden'] == 1) {
+                                    if ( ! is_plugin_active( $plugin_file ) ) {
+                                        ?>
+                                        <a href="<?php echo esc_url( $activate_link ); ?>" class="button button-primary"><?php esc_html_e( 'Activate', 'rpt_rebranding' ); ?></a>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <a href="<?php echo esc_url( $deactivate_link ); ?>" class="button button-primary"><?php esc_html_e( 'Deactivate', 'rpt_rebranding' ); ?></a>
+                                        <?php
+                                    }
+                            }else{ ?>
+                                        <a href="#" class="button button-primary" style="    pointer-events: none;
+                                    cursor: default;
+                                    background: #ddd;
+                                    color: #004eee;
+                                    padding: 0;">غير متوفرة في باقتك</a>
+
+                            <?php
+                                
+                            }
+
                                 ?>
                             </div>
                         </div>
