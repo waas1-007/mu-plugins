@@ -1164,7 +1164,7 @@ function rpt_rebranded_plugins_page() {
                                         <a href="#" class="button button-primary" style="    pointer-events: none;
                                     cursor: default;
                                     background: #ddd;
-                                    color: #004eee;
+                                    color: red;
                                     padding: 0;">غير متوفرة في باقتك</a>
 
                             <?php
