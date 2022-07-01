@@ -911,10 +911,13 @@ function rpt_rebranded_plugins_page() {
             display: none;
         }
         .rpt-plugin-box-top-right {
-    width: 100px;
-    min-width: 85px;
+
+            width: 100px;
+    min-width: 100px;
     text-align: center;
 }
+
+
         #rpt-search-plugins {
             vertical-align: middle;
         }
