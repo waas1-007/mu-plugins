@@ -1,4 +1,58 @@
 <?php
+/**
+ * @package 
+ */
+/*
+Plugin Name: 
+Plugin URI: https://waas1.com/
+Description: custom hooks only for this platform.
+Version: 1.0.0
+Author: 
+Author URI: https://waas1.com/
+License: GPLv2 or later
+*/
+
+
+//change log
+// version 1.0.1
+
+
+
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) { //this is for secuirty
+	exit;
+}
+
+//do not run if user is not in back-end
+if ( ! is_admin() ) { return; } //this is for performance
+
+
+//if the call is from "wp-cli" don't run the code below
+if ( defined( 'WP_CLI' ) && WP_CLI ) { return; } //this is important that controlpanel can see all the plugins
+
+
+
+//do not run if the call is ajax
+if ( defined('DOING_AJAX') && DOING_AJAX) { return; } //we do not need to run this in javascript ajax call = This is for perforamnce
+
+
+
+
+
+//also please exclude your code for superduper!!!!
+//First test this using sftp. Do not push the code on GIT while your are testing
+
+
+
+
+
+
+//////
+///Eslamn code is following
+///////
+
+
+
 if (WAAS1_RESTRICTION_GROUP_ID != 1) {
 
     add_action('admin_init', function () {
