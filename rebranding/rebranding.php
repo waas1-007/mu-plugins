@@ -609,13 +609,21 @@ function rpt_theme_rebranding_page() {
  * @return array
  */
 function rpt_rebrand_theme_data( $themes ) {
-
     // We only check for super admin and not for page, so it works in the customizer too
+   
+    array_multisort(array_map(function($element) {
+        return  $element['active'] == 1? $element['active'] :$element['hidden'];
+    }, $themes), SORT_DESC, $themes);
+  
     if ( ! rpt_is_current_user_super_admin() ) {
         foreach ( $themes as $stylesheet => $theme ) {
             $stylesheet = sanitize_html_class( $stylesheet );
             $theme_rebranding = rpt_get_theme( $stylesheet );
+           
             if ( is_array( $themes[ $stylesheet ] ) ) {
+                if($themes[ $stylesheet ]['hidden'] == -1){
+                    unset($themes[ $stylesheet ]['actions']);
+                }
                 if ( array_key_exists( "actions", $themes[ $stylesheet ] ) && ! empty( $themes[ $stylesheet ]["actions"] )
                     && is_array( $themes[ $stylesheet ]["actions"] ) && array_key_exists( "autoupdate", $themes[ $stylesheet ]["actions"] )
                     && ! empty( $themes[ $stylesheet ]["actions"]["autoupdate"] ) ) {
@@ -999,6 +1007,9 @@ function rpt_rebranded_plugins_page() {
         $plugins = apply_filters( 'all_plugins', get_plugins() ); 
         $plugins_to_show = Array();
         $categories = Array();
+        array_multisort(array_map(function($element) {
+            return  $element['hidden'];
+        }, $plugins), SORT_DESC, $plugins);
         foreach ( $plugins as $plugin_file => $plugin_data ) {
             if (isset($_GET['plugin_status'])and in_array($_GET['plugin_status'],['active','inactive']) AND !$plugin_data['hidden']) {
                 continue;
@@ -1165,7 +1176,7 @@ function rpt_rebranded_plugins_page() {
                                     cursor: default;
                                     background: #ddd;
                                     color: red;
-                                    padding: 0;">غير متوفرة في باقتك</a>
+                                    padding: 0;">غير متوفر في باقتك</a>
 
                             <?php
                                 
@@ -1326,7 +1337,14 @@ function rpt_print_admin_head_styles() {
 
             // Move theme category menu under page title, there are no hooks to do it any other way
             jQuery( '.rpt-themes-menu' ).insertAfter( ".wp-header-end" );
+            jQuery('.theme-actions .activate').each(function() {
+                  if(jQuery(this).attr('href') == ""){
+                   jQuery( jQuery(this).parent('.theme-actions')).html(`
+                    <a href="#" class="button button-primary" style="pointer-events: none;cursor: default;background: #f9f9f9;color: red;padding: 0;font-size: 1rem;margin: 0;">غير متوفر في باقتك</a>`) .css({opacity: 1})
 
+
+                  }
+            });
         });
         </script>
         <?php

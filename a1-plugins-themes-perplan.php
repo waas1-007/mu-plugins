@@ -30,13 +30,8 @@ function _filter_all_plugins($get_plugins)
                 deactivate_plugins("/$plugin");
             }
         }
-        foreach ($critical_plugins as $v) {
+        activate_plugin($critical_plugins);
 
-            if (!is_plugin_active($v)) {
-
-                activate_plugin($v);
-            }
-        }
     }
 
     return  $plugins_allowed;
@@ -52,19 +47,23 @@ function filter_all_themes($get_themes)
     // $plan = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plans/2.json'), true);
     if (isset($plan['themes'])) {
         foreach ($get_themes as $key =>  $theme) {
+            $theme['hidden'] =0;
             if (in_array($key, $plan['themes'])) {
                 $themes_allowed[$key] = $theme;
+            }else{
+                $theme['hidden'] =-1;
+                $themes_allowed[$key] = $theme;
+                
             }
         }
     }
-
     return $themes_allowed;
 }
 
 if (WAAS1_RESTRICTION_GROUP_ID != 1) {
 add_filter('all_plugins', '_filter_all_plugins', 99, 1);
 
-add_filter('wp_prepare_themes_for_js', 'filter_all_themes', 99, 2);
+add_filter('wp_prepare_themes_for_js', 'filter_all_themes', 1, 2);
 add_filter('show_advanced_plugins', function ($default, $type) {
     if ($type == 'mustuse') return false; // Hide Must-Use
     return $default;
