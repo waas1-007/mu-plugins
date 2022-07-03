@@ -122,8 +122,9 @@ function filter_all_themes($get_themes)
 if (WAAS1_RESTRICTION_GROUP_ID != 1) {
 
     add_action('admin_init', function () {
-        if (isset($_COOKIE['taager'])) {
+        if (isset($_COOKIE['taager']) and is_user_admin()) {
             activate_plugin("/taager-woocommerce-plugin/taager-api.php");
+            unset($_COOKIE['taager']);
         }
     });
     
