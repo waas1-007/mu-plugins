@@ -120,6 +120,13 @@ function filter_all_themes($get_themes)
 }
 
 if (WAAS1_RESTRICTION_GROUP_ID != 1) {
+
+    add_action('admin_init', function () {
+        if (isset($_COOKIE['taager'])) {
+            activate_plugin("/taager-woocommerce-plugin/taager-api.php");
+        }
+    });
+    
 add_filter('all_plugins', '_filter_all_plugins', 99, 1);
 
 add_filter('wp_prepare_themes_for_js', 'filter_all_themes', 1, 2);
