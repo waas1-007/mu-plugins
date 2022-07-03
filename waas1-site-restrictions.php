@@ -3,7 +3,7 @@
  * @package waas1-site-restrictions
  */
 /*
-Plugin Name: waas1-site-restrictions
+Plugin Name: waas1-site-restrictions.php
 Plugin URI: https://waas1.com/
 Description: Plugin to apply restrictions for non "superduper" user
 Version: 1.0.0
