@@ -121,8 +121,9 @@ function june2720221012_after_switch_theme(){
 	//if we do not find the key return from here
 	if( !$continue ){ return; }
 	
-
+	// Eslam: Enable activating plugin theme, to override plugns/themes per plan
 	@file_put_contents(WPMU_PLUGIN_DIR . '/json/related-plugins-auto-active.json',json_encode($pluginsArray[$newTheme],JSON_UNESCAPED_UNICODE) );
+	// End 
 	
 	foreach( $pluginsArray[$newTheme] as $plugin ){
 		activate_plugin( $plugin );
