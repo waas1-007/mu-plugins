@@ -58,6 +58,9 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
     function wp_custom_css()
     {
         echo '<style>
+        .yith-plugin-fw-banner {
+            display: none;
+        }
         .woocommerce-embed-page #wpbody .woocommerce-layout, .woocommerce-embed-page .woocommerce-layout__notice-list-hide+.wrap {
             padding-top: 10px;
         }
