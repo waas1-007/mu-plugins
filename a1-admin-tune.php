@@ -58,25 +58,25 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
     function wp_custom_css()
     {
         echo '<style>
-        .yith-plugin-fw-banner {
-            display: none;
-        }
-        .woocommerce-embed-page #wpbody .woocommerce-layout, .woocommerce-embed-page .woocommerce-layout__notice-list-hide+.wrap {
-            padding-top: 10px;
-        }
-        .woocommerce-embed-page #screen-meta, .woocommerce-embed-page #screen-meta-links {
-            top: 0px;
-        }
-        .woocommerce-layout__header {
-            display: none;
-        }
-        .woocommerce-layout__activity-panel-tabs {
-            display: none;
-        }
-        .woocommerce-layout__header-breadcrumbs {
-            display: none;
-        }
-        /* start css for checkout page */
+                .yith-plugin-fw-banner {
+                    display: none;
+                }
+                .woocommerce-embed-page #wpbody .woocommerce-layout, .woocommerce-embed-page .woocommerce-layout__notice-list-hide+.wrap {
+                    padding-top: 10px;
+                }
+                .woocommerce-embed-page #screen-meta, .woocommerce-embed-page #screen-meta-links {
+                    top: 0px;
+                }
+                .woocommerce-layout__header {
+                    display: none;
+                }
+                .woocommerce-layout__activity-panel-tabs {
+                    display: none;
+                }
+                .woocommerce-layout__header-breadcrumbs {
+                    display: none;
+                }
+               /* start css for checkout page */
                 body.woocommerce-checkout .woocommerce-checkout-review-order .woocommerce-checkout-review-order-table .product-total {
                     text-align: left;
                 }
@@ -477,7 +477,14 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
                 .fs-tab.woocommerce-google-adwords-conversion-tracking-tag {
                     display: none;
                 }
-        </style>';
+        </style>
+        <script>
+        jQuery(function(){
+    
+            if(jQuery(".yith-plugin-fw-tab-element").last().text()=="Help")  jQuery(".yith-plugin-fw-tab-element").last().remove();
+            })
+        </script>';
+        
     }
     add_action('admin_head', 'wp_custom_css');
 
