@@ -675,3 +675,11 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
         return $sections;
     }
 }
+
+add_action('admin_init', function () {
+
+    if (isset($_GET['page']) and str_contains($_GET['page'], 'yith-licence')) {
+
+        wp_redirect(wp_get_referer() ? wp_get_referer() : admin_url('plugins.php'));
+    }
+});
