@@ -81,8 +81,7 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
       </style>';
     });
 
-    add_action('admin_init', function () {
-
+    add_action( 'admin_menu',function () {
         remove_submenu_page('options-general.php', 'uip-styles');
         remove_submenu_page('options-general.php', 'uip-settings');
         remove_submenu_page('tools.php', 'action-scheduler');
@@ -92,7 +91,11 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
         remove_submenu_page('yith_plugin_panel', 'yith_system_info');
         remove_submenu_page('yith_plugin_panel', 'yith_plugins_activation');
         remove_submenu_page('pixelyoursite', 'pixelyoursite_report');
-        
+    },99999);
+
+    add_action('admin_init', function () {
+
+   
         $skip_links = [
             'theme-install.php',
             'plugin-install.php',
