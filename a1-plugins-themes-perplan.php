@@ -20,21 +20,27 @@ License: GPLv2 or later
 
 
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) { //this is for secuirty
-	exit;
+if (!defined('ABSPATH')) { //this is for secuirty
+    exit;
 }
 
 //do not run if user is not in back-end
-if ( ! is_admin() ) { return; } //this is for performance
+if (!is_admin()) {
+    return;
+} //this is for performance
 
 
 //if the call is from "wp-cli" don't run the code below
-if ( defined( 'WP_CLI' ) && WP_CLI ) { return; } //this is important that controlpanel can see all the plugins
+if (defined('WP_CLI') && WP_CLI) {
+    return;
+} //this is important that controlpanel can see all the plugins
 
 
 
 //do not run if the call is ajax
-if ( defined('DOING_AJAX') && DOING_AJAX) { return; } //we do not need to run this in javascript ajax call = This is for perforamnce
+if (defined('DOING_AJAX') && DOING_AJAX) {
+    return;
+} //we do not need to run this in javascript ajax call = This is for perforamnce
 
 
 
@@ -77,7 +83,7 @@ function _filter_all_plugins($get_plugins)
             $plugin['hidden'] = 1;
             if (in_array($key, $plan['plugins']) and !in_array($key, $plugins_hidden)) {
                 $plugins_allowed[$key] = $plugin;
-            } else if ( !in_array($key, $plugins_hidden)){
+            } else if (!in_array($key, $plugins_hidden)) {
                 $plugin['hidden'] = 0;
 
                 $plugins_allowed[$key] = $plugin;
@@ -90,7 +96,6 @@ function _filter_all_plugins($get_plugins)
             }
         }
         activate_plugin($critical_plugins);
-
     }
 
     return  $plugins_allowed;
@@ -106,35 +111,37 @@ function filter_all_themes($get_themes)
     // $plan = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plans/2.json'), true);
     if (isset($plan['themes'])) {
         foreach ($get_themes as $key =>  $theme) {
-            $theme['hidden'] =0;
+            $theme['hidden'] = 0;
             if (in_array($key, $plan['themes'])) {
                 $themes_allowed[$key] = $theme;
-            }else{
-                $theme['hidden'] =-1;
+            } else {
+                $theme['hidden'] = -1;
                 $themes_allowed[$key] = $theme;
-                
             }
         }
     }
     return $themes_allowed;
 }
 
+
 if (WAAS1_RESTRICTION_GROUP_ID != 1) {
 
     add_action('admin_init', function () {
-        if (isset($_COOKIE['taager']) and is_user_admin()) {
+
+        if (isset($_COOKIE['taager']) and current_user_can('administrator')) {
             activate_plugin("/taager-woocommerce-plugin/taager-api.php");
             unset($_COOKIE['taager']);
+            setcookie('taager', '', time() - 3600, '/', '.myshahbandr.com', true, true);
         }
     });
-    
-add_filter('all_plugins', '_filter_all_plugins', 99, 1);
 
-add_filter('wp_prepare_themes_for_js', 'filter_all_themes', 1, 2);
-add_filter('show_advanced_plugins', function ($default, $type) {
-    if ($type == 'mustuse') return false; // Hide Must-Use
-    return $default;
-}, 10, 2);
+    add_filter('all_plugins', '_filter_all_plugins', 99, 1);
 
-require_once __DIR__ . '/rebranding/rebranding.php';
+    add_filter('wp_prepare_themes_for_js', 'filter_all_themes', 1, 2);
+    add_filter('show_advanced_plugins', function ($default, $type) {
+        if ($type == 'mustuse') return false; // Hide Must-Use
+        return $default;
+    }, 10, 2);
+
+    require_once __DIR__ . '/rebranding/rebranding.php';
 }
