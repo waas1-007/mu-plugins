@@ -54,11 +54,6 @@ if( isset($_SERVER['HTTP_REFERER']) ){
 		return $headers;
 	};
 	
-	add_filter( 'show_admin_bar' , 'july522230_show_admin_bar' );
-	function july522230_show_admin_bar(){
-		return false; //do not show admin bar
-	} //july522230_show_admin_bar ends
-	
 }
 
 
