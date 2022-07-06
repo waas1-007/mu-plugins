@@ -693,3 +693,9 @@ add_action('admin_init', function () {
         wp_redirect(wp_get_referer() ? wp_get_referer() : admin_url('plugins.php'));
     }
 });
+
+//uipress menu
+.uip-mobile-menu {
+    --uip-menu-width: 50vw !important;
+    display: block !important;
+}
