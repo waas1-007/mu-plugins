@@ -121,17 +121,18 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
     }, 9999, 99);
 }
 foreach (array_diff(scandir(WPMU_PLUGIN_DIR . '/json/uip/'), array('.', '..')) as $key => $__uip) {
-    add_filter('option_' . basename($__uip, '.json'), function ($plugins) use ($__uip) {
+    add_filter('pre_option_' . basename($__uip, '.json'), function ($plugins) use ($__uip) {
         return json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/uip/' . $__uip, true), true);
     });
 }
+
 foreach (array_diff(scandir(WPMU_PLUGIN_DIR . '/json/pys/'), array('.', '..')) as $key => $__uip) {
-    add_filter('option_' . basename($__uip, '.json'), function ($plugins) use ($__uip) {
+    add_filter('pre_option_' . basename($__uip, '.json'), function ($plugins) use ($__uip) {
         return json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/pys/' . $__uip, true), true);
     });
 }
 foreach (array_diff(scandir(WPMU_PLUGIN_DIR . '/json/menu-editor/'), array('.', '..')) as $key => $__editor) {
-    add_filter('option_' . basename($__editor, '.json'), function ($plugins) use ($__editor) {
+    add_filter('pre_option_' . basename($__editor, '.json'), function ($plugins) use ($__editor) {
         return json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/menu-editor/' . $__editor, true), true);
     });
 }
