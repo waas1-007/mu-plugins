@@ -91,11 +91,11 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
         remove_submenu_page('yith_plugin_panel', 'yith_system_info');
         remove_submenu_page('yith_plugin_panel', 'yith_plugins_activation');
         remove_submenu_page('pixelyoursite', 'pixelyoursite_report');
+        remove_submenu_page('pixelyoursite', 'pixelyoursite_licenses');
     },99999);
 
     add_action('admin_init', function () {
 
-   
         $skip_links = [
             'theme-install.php',
             'plugin-install.php',
@@ -107,6 +107,7 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
             'rank-math-status',
             'wc-status',
             'yith_system_info',
+            'pixelyoursite_licenses',
         ];
 
         if (
@@ -124,7 +125,11 @@ foreach (array_diff(scandir(WPMU_PLUGIN_DIR . '/json/uip/'), array('.', '..')) a
         return json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/uip/' . $__uip, true), true);
     });
 }
-
+foreach (array_diff(scandir(WPMU_PLUGIN_DIR . '/json/pys/'), array('.', '..')) as $key => $__uip) {
+    add_filter('option_' . basename($__uip, '.json'), function ($plugins) use ($__uip) {
+        return json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/pys/' . $__uip, true), true);
+    });
+}
 foreach (array_diff(scandir(WPMU_PLUGIN_DIR . '/json/menu-editor/'), array('.', '..')) as $key => $__editor) {
     add_filter('option_' . basename($__editor, '.json'), function ($plugins) use ($__editor) {
         return json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/menu-editor/' . $__editor, true), true);
