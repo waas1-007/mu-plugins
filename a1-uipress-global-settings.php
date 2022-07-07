@@ -61,6 +61,18 @@ if (defined('DOING_AJAX') && DOING_AJAX) {
 
 
 if (WAAS1_RESTRICTION_GROUP_ID != 1) {
+    add_filter('woocommerce_get_sections_products', function ($sections) {
+        unset($sections['download_urls']);
+    
+        return $sections;
+    }, 20);
+    
+    add_filter('woocommerce_settings_tabs_array', function ($settings_tabs) {
+        unset($settings_tabs['wts_settings']);
+    
+        return $settings_tabs;
+    }, 50);
+    
     add_filter('site_transient_update_plugins', '__return_false');
     add_filter( 'pre_site_transient_update_plugins', create_function( '$a', "return null;" ) );
 
