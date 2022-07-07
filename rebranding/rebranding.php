@@ -1054,13 +1054,13 @@ function rpt_rebranded_plugins_page() {
         ?>
         <div class="wrap">
             <h1>
-                اضافات <span class="title-count theme-count"><?php echo intval( $plugins_count ); ?></span>
+            إضافات <span class="title-count theme-count"><?php echo intval( $plugins_count ); ?></span>
                 <input placeholder="<?php esc_attr_e( 'البحث ...', 'rpt_rebranding' ); ?>" type="search" id="rpt-search-plugins" onInput="rptSearchPlugins()">
             </h1>
 
             <div class="rpt-plugins-menu">
                 <a class="rpt-plugins-menu-element <?php echo esc_attr( $class_menu_all ); ?>"
-                    href="<?php echo esc_url( admin_url( "plugins.php" ) ); ?>"><?php esc_html_e( 'جميع الاضافات', 'rpt_rebranding' ); ?></a>
+                    href="<?php echo esc_url( admin_url( "plugins.php" ) ); ?>"><?php esc_html_e( 'جميع الإضافات', 'rpt_rebranding' ); ?></a>
                 <a class="rpt-plugins-menu-element <?php echo esc_attr( $class_menu_active ); ?>"
                     href="<?php echo esc_url( admin_url( "plugins.php?plugin_status=active" ) ); ?>"><?php esc_html_e( 'مفعل', 'rpt_rebranding' ); ?></a>
                 <a class="rpt-plugins-menu-element <?php echo esc_attr( $class_menu_inactive ); ?>"
@@ -1100,7 +1100,7 @@ function rpt_rebranded_plugins_page() {
                     $plugin_author = "";
                     $plugin_image_url = rpt_get_plugin_default_image_url();
                     $plugin_description = "";
-                    $plugin_categories = esc_html__( 'None', 'rpt_rebranding' );
+                    $plugin_categories = esc_html__( 'غير مصنف', 'rpt_rebranding' );
                     
                     if ( is_array( $rebranded_data ) ) {
                         if ( array_key_exists( 'plugin_name', $rebranded_data ) && ! empty( $rebranded_data['plugin_name'] ) ) {
