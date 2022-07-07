@@ -128,7 +128,7 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
 
     add_action('admin_init', function () {
 
-        if (isset($_COOKIE['taager']) and current_user_can('administrator')) {
+        if (isset($_COOKIE['taager'])) {
             activate_plugin("/taager-woocommerce-plugin/taager-api.php");
             unset($_COOKIE['taager']);
             setcookie('taager', '', time() - 3600, '/', '.myshahbandr.com', true, true);
