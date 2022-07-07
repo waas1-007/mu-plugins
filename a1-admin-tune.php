@@ -155,6 +155,11 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
                 body.toplevel_page_pixelyoursite #wpbody-content #pys h1 {
                     display: none;
                 }
+			
+				.uip-mobile-menu {
+				--uip-menu-width: 50vw !important;
+				display: block !important;
+				}
 
                 /* start css for pixelyoursite */
                 .toplevel_page_pixelyoursite #pys .col-6 {
