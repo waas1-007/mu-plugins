@@ -1054,17 +1054,17 @@ function rpt_rebranded_plugins_page() {
         ?>
         <div class="wrap">
             <h1>
-                Plugins <span class="title-count theme-count"><?php echo intval( $plugins_count ); ?></span>
-                <input placeholder="<?php esc_attr_e( 'Search plugins...', 'rpt_rebranding' ); ?>" type="search" id="rpt-search-plugins" onInput="rptSearchPlugins()">
+                اضافات <span class="title-count theme-count"><?php echo intval( $plugins_count ); ?></span>
+                <input placeholder="<?php esc_attr_e( 'البحث ...', 'rpt_rebranding' ); ?>" type="search" id="rpt-search-plugins" onInput="rptSearchPlugins()">
             </h1>
 
             <div class="rpt-plugins-menu">
                 <a class="rpt-plugins-menu-element <?php echo esc_attr( $class_menu_all ); ?>"
-                    href="<?php echo esc_url( admin_url( "plugins.php" ) ); ?>"><?php esc_html_e( 'All Plugins', 'rpt_rebranding' ); ?></a>
+                    href="<?php echo esc_url( admin_url( "plugins.php" ) ); ?>"><?php esc_html_e( 'جميع الاضافات', 'rpt_rebranding' ); ?></a>
                 <a class="rpt-plugins-menu-element <?php echo esc_attr( $class_menu_active ); ?>"
-                    href="<?php echo esc_url( admin_url( "plugins.php?plugin_status=active" ) ); ?>"><?php esc_html_e( 'Active', 'rpt_rebranding' ); ?></a>
+                    href="<?php echo esc_url( admin_url( "plugins.php?plugin_status=active" ) ); ?>"><?php esc_html_e( 'مفعل', 'rpt_rebranding' ); ?></a>
                 <a class="rpt-plugins-menu-element <?php echo esc_attr( $class_menu_inactive ); ?>"
-                    href="<?php echo esc_url( admin_url( "plugins.php?plugin_status=inactive" ) ); ?>"><?php esc_html_e( 'Inactive', 'rpt_rebranding' ); ?></a>
+                    href="<?php echo esc_url( admin_url( "plugins.php?plugin_status=inactive" ) ); ?>"><?php esc_html_e( 'غير مفعل', 'rpt_rebranding' ); ?></a>
                 <?php
                 $number = 1;
                 foreach ( $categories as $category ) {
@@ -1154,7 +1154,7 @@ function rpt_rebranded_plugins_page() {
                                 <?php
                                 if ( ! empty( $plugin_author ) ) {
                                     ?>
-                                    <div class="rpt-plugin-box-author">By <?php echo esc_html( $plugin_author ); ?></div>
+                                    <div class="rpt-plugin-box-author">بواسطة  <?php echo esc_html( $plugin_author ); ?></div>
                                     <?php
                                 }
                                 ?>
@@ -1164,11 +1164,11 @@ function rpt_rebranded_plugins_page() {
                                 if ($plugin_data['hidden'] == 1) {
                                     if ( ! is_plugin_active( $plugin_file ) ) {
                                         ?>
-                                        <a href="<?php echo esc_url( $activate_link ); ?>" class="button button-primary"><?php esc_html_e( 'Activate', 'rpt_rebranding' ); ?></a>
+                                        <a href="<?php echo esc_url( $activate_link ); ?>" class="button button-primary"><?php esc_html_e( 'تفعيل', 'rpt_rebranding' ); ?></a>
                                         <?php
                                     } else {
                                         ?>
-                                        <a href="<?php echo esc_url( $deactivate_link ); ?>" class="button button-primary"><?php esc_html_e( 'Deactivate', 'rpt_rebranding' ); ?></a>
+                                        <a href="<?php echo esc_url( $deactivate_link ); ?>" class="button button-primary"><?php esc_html_e( 'تعطيل', 'rpt_rebranding' ); ?></a>
                                         <?php
                                     }
                             }else{ ?>
@@ -1197,12 +1197,12 @@ function rpt_rebranded_plugins_page() {
                             <?php
                             if ( ! empty( $plugin_author ) ) {
                                 ?>
-                                <div class="rpt-plugin-box-author"><?php esc_html_e( 'By', 'rpt_rebranding' ); ?> <?php echo esc_html( $plugin_author ); ?></div>
+                                <div class="rpt-plugin-box-author"><?php esc_html_e( 'بواطسة', 'rpt_rebranding' ); ?> <?php echo esc_html( $plugin_author ); ?></div>
                                 <?php
                             }
                             ?>
                         </div>
-                        <div class="rpt-plugin-box-bottom"><b><?php esc_html_e( 'Categories:', 'rpt_rebranding' ); ?></b> <?php echo esc_html( $plugin_categories ); ?></div>
+                        <div class="rpt-plugin-box-bottom"><b><?php esc_html_e( 'التصنيفات:', 'rpt_rebranding' ); ?></b> <?php echo esc_html( $plugin_categories ); ?></div>
                     </div>
                     <?php
                     $number++;
