@@ -46,6 +46,14 @@ add_action( 'pre_current_active_plugins', function(){
 						'storefront-title-toggle/storefront-title-toggle.php',
 						//plugin arabic fonts not found in git.
 
+						//Theme: Famita
+						'apus-framework/apus-framework.php',
+						'cmb2/init.php',
+						'js_composer/js_composer.php',
+						'variation-swatches-for-woocommerce/variation-swatches-for-woocommerce.php',
+						'woo-smart-compare/wpc-smart-compare.php',
+						'woo-smart-wishlist/wpc-smart-wishlist.php',
+
 						);
 						
 	$myplugins = $wp_list_table->items;
@@ -77,6 +85,7 @@ function june2720221012_after_switch_theme(){
 		'oceanwp' 		=> array( 'ocean-extra/ocean-extra.php' ),
 		'ignition' 		=> array( 'ignition/ignition.php' ),
 		'storefront' 	=> array( 'storefront-powerpack/storefront-powerpack.php', 'storefront-title-toggle/storefront-title-toggle.php' ),
+		'famita' 	=> array( 'apus-framework/apus-framework.php', 'cmb2/init.php', 'js_composer/js_composer.php','variation-swatches-for-woocommerce/variation-swatches-for-woocommerce.php','woo-smart-compare/wpc-smart-compare.php','woo-smart-wishlist/wpc-smart-wishlist.php', ),
 		//'avada' 	=> array( ),
 	);
 	
