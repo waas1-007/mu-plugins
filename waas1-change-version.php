@@ -314,15 +314,22 @@ add_filter( 'plugin_action_links', function ( $actions, $plugin_file, $plugin_da
 	if ( ! isset( $plugin_data['Version'] ) ) {
 		return $actions;
 	}
-	
-	
-	
+
+
 	$args = array();
 	if( isset($plugin_data['slug']) ){
 		$args['slug'] = $plugin_data['slug'];
 	}else{//build the slug from $plugin_path
 		$explodedPath = explode( '/', $plugin_file );
 		$args['slug'] = $explodedPath[0];
+	}
+	
+	//override for some plugins
+	if( $args['slug'] == 'bp-loader' ){ //buddyboss
+		$args['slug'] = 'buddyboss-platform';
+		
+	}elseif( $args['slug'] == 'sfwd_lms' ){ //learn dash
+		$args['slug'] = 'sfwd-lms';
 	}
 	
 	
@@ -828,7 +835,6 @@ function waas1_change_version_check_if_symlink( $type, $args ){
 
 
 function waas1_check_if_we_have_repo( $type, $args ){
-	
 	
 	if( $type == 'plugin' ){
 		
