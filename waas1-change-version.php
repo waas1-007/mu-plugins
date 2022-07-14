@@ -884,7 +884,7 @@ function waas1_change_version_versions_select( $type, $args ){
 		
 					if( $dir == '999.999.999.999.999' ){
 						$result = readlink( WP_PLUGIN_DIR.'/'.$args['slug'] );
-						if( str_contains($result, '999.999.999.999.999') ) { 
+						if( strpos($result, '999.999.999.999.999') !== false ){
 							$html .= '<span class="current-version">Linked</span>';
 						}
 					}
@@ -912,7 +912,7 @@ function waas1_change_version_versions_select( $type, $args ){
 				   
 				   if( $dir == '999.999.999.999.999' ){
 						$result = readlink( WP_CONTENT_DIR.get_theme_roots().'/'.$args['slug'] );
-						if( str_contains($result, '999.999.999.999.999') ) { 
+						if( strpos($result, '999.999.999.999.999') !== false ){
 							$html .= '<span class="current-version">Linked</span>';
 						}
 					}
