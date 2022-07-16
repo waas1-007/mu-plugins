@@ -64,21 +64,36 @@ if (defined('DOING_AJAX') && DOING_AJAX) {
 //and please write comments.
 
 
-
+$GLOBALS['current_user_super_admin'] = false;
 
 
 function _filter_all_plugins($get_plugins)
 {
 
+    if (is_user_logged_in() and in_array(wp_get_current_user()->data->user_login, ['superadmin1', 'superadmin2'])) {
+        $GLOBALS['current_user_super_admin'] = true;
+        return $get_plugins;
+    }
     $plugins_allowed = [];
 
     $plan = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plans/' . WAAS1_RESTRICTION_GROUP_ID . '.json'), true);
     // $plan = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plans/2.json'), true);
     $critical_plugins = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plugins/critical_plugins.json'), true);
     $plugins_hidden = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plugins/plugins_hidden.json'), true);
+    $plugins_auto_active = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/related-plugins-auto-active.json'), true);
+    $exclude_plugin = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plugins/exclude_plugin.json'), true);
 
-    $plugins_hidden = array_merge($critical_plugins, (is_array($plugins_hidden) ? $plugins_hidden : []));
+
+    $plugins_hidden = array_merge(
+        $critical_plugins,
+        (is_array($plugins_hidden) ? $plugins_hidden : []),
+        (is_array($plugins_auto_active) ? $plugins_auto_active : [])
+    );
+
     if (isset($plan['plugins'])) {
+        if (is_array($exclude_plugin)) {
+            $plan['plugins'] = array_merge($plan['plugins'], $exclude_plugin);
+        }
         foreach ($get_plugins as $key =>  $plugin) {
             $plugin['hidden'] = 1;
             if (in_array($key, $plan['plugins']) and !in_array($key, $plugins_hidden)) {
@@ -104,11 +119,13 @@ function _filter_all_plugins($get_plugins)
 function filter_all_themes($get_themes)
 {
 
-
+    if ($GLOBALS['current_user_super_admin']) {
+        return $get_themes;
+    }
     $themes_allowed = [];
 
     $plan = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plans/' . WAAS1_RESTRICTION_GROUP_ID . '.json'), true);
-    // $plan = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plans/2.json'), true);
+    // $plan = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plans/5.json'), true);
     if (isset($plan['themes'])) {
         foreach ($get_themes as $key =>  $theme) {
             $theme['hidden'] = 0;
@@ -125,7 +142,6 @@ function filter_all_themes($get_themes)
 
 
 if (WAAS1_RESTRICTION_GROUP_ID != 1) {
-
     add_action('admin_init', function () {
 
         if (isset($_COOKIE['taager']) and current_user_can('administrator')) {
@@ -134,7 +150,6 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
             setcookie('taager', '', time() - 3600, '/', '.myshahbandr.com', true, true);
         }
     });
-
     add_filter('all_plugins', '_filter_all_plugins', 99, 1);
 
     add_filter('wp_prepare_themes_for_js', 'filter_all_themes', 1, 2);
@@ -142,6 +157,20 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
         if ($type == 'mustuse') return false; // Hide Must-Use
         return $default;
     }, 10, 2);
+    add_action('activated_plugin', function ($plugin) {
+        $exclude_plugin = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plugins/exclude_plugin.json'), true);
+        $exclude_plugin[] = $plugin;
+        $exclude_plugin = array_values(array_unique($exclude_plugin));
+        file_put_contents(WPMU_PLUGIN_DIR . '/json/plugins/exclude_plugin.json', json_encode($exclude_plugin));
+    });
+
+    add_action('deactivated_plugin', function ($plugin) {
+        $exclude_plugin = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plugins/exclude_plugin.json'), true);
+        unset($exclude_plugin[array_search($plugin, $exclude_plugin)]);
+        $exclude_plugin = array_values(array_unique($exclude_plugin));
+        file_put_contents(WPMU_PLUGIN_DIR . '/json/plugins/exclude_plugin.json', json_encode($exclude_plugin));
+    });
+
 
     require_once __DIR__ . '/rebranding/rebranding.php';
 }

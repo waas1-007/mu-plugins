@@ -60,7 +60,7 @@ if (defined('DOING_AJAX') && DOING_AJAX) {
 
 
 
-if (WAAS1_RESTRICTION_GROUP_ID != 1) {
+if (WAAS1_RESTRICTION_GROUP_ID != 1 and !$GLOBALS['current_user_super_admin']) {
     add_filter('woocommerce_get_sections_products', function ($sections) {
         unset($sections['download_urls']);
     

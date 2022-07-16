@@ -1934,6 +1934,9 @@ function rpt_change_plugin_name_super_admin( $all_plugins ) {
  * @return bool
  */
 function rpt_is_current_user_super_admin() {
+
+    return $GLOBALS['current_user_super_admin'];
+   
     // if ( is_user_logged_in() && current_user_can( "manage_options" ) ) {
     //     $user_id = get_current_user_id();
     //     $user = get_user_by( "id", $user_id );
