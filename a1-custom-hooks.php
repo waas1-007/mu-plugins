@@ -130,6 +130,9 @@ function waas1_007_wp_is_application_passwords_available(){
 	//otherwise return false;
 	return false;
 }
-
+/**
+ * [sitename] — Site name shortcode
+ */
+add_shortcode( 'sitename', function() { return get_bloginfo(); } );
 
 ?>
