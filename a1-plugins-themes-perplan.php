@@ -119,7 +119,7 @@ function _filter_all_plugins($get_plugins)
 function filter_all_themes($get_themes)
 {
 
-    if ($GLOBALS['current_user_super_admin']) {
+    if (is_user_logged_in() and in_array(wp_get_current_user()->data->user_login, ['superduper'])) {
         return $get_themes;
     }
     $themes_allowed = [];
@@ -158,7 +158,7 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
         return $default;
     }, 10, 2);
     add_action('activated_plugin', function ($plugin) {
-        if ($GLOBALS['current_user_super_admin']) {
+        if (is_user_logged_in() and in_array(wp_get_current_user()->data->user_login, ['superduper'])) {
             $exclude_plugin = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plugins/exclude_plugin.json'), true);
             $exclude_plugin[] = $plugin;
             $exclude_plugin = array_values(array_unique($exclude_plugin));
@@ -167,7 +167,7 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
     });
 
     add_action('deactivated_plugin', function ($plugin) {
-        if ($GLOBALS['current_user_super_admin']) {
+        if (is_user_logged_in() and in_array(wp_get_current_user()->data->user_login, ['superduper'])) {
             $exclude_plugin = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plugins/exclude_plugin.json'), true);
             unset($exclude_plugin[array_search($plugin, $exclude_plugin)]);
             $exclude_plugin = array_values(array_unique($exclude_plugin));
