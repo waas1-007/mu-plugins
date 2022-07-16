@@ -58,6 +58,9 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
     function wp_custom_css()
     {
         echo '<style>
+        p.form-field.free_shipping_field span.description {
+            display: none;
+        }
                 .yith-plugin-fw-banner {
                     display: none;
                 }
