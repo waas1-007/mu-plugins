@@ -88,7 +88,7 @@ add_action('admin_bar_menu', function( $wp_admin_bar ){
 		$wp_admin_bar->remove_node('w3tc_settings_faq');
 		$wp_admin_bar->remove_node('w3tc_settings_general');
 		$wp_admin_bar->remove_node('w3tc_feature_showcase');
-		$wp_admin_bar->remove_node('w3tc_flush_all');
+		//$wp_admin_bar->remove_node('w3tc_flush_all');
 		$wp_admin_bar->remove_node('w3tc_overlay_upgrade'); //only avaiable in admin
 		
 		//autoptimize
@@ -103,7 +103,7 @@ add_action('admin_bar_menu', function( $wp_admin_bar ){
 		$wp_admin_bar->remove_node('w3tc_settings_faq');
 		$wp_admin_bar->remove_node('w3tc_settings_general');
 		$wp_admin_bar->remove_node('w3tc_feature_showcase');
-		$wp_admin_bar->remove_node('w3tc_flush_all');
+		//$wp_admin_bar->remove_node('w3tc_flush_all');
 
 		//autoptimize
 		$wp_admin_bar->remove_node('autoptimize');
