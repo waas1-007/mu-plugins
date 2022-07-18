@@ -13,7 +13,7 @@ add_action('wp_before_admin_bar_render', function () {
     // $wp_admin_bar->remove_menu('w3tc');
     // $wp_admin_bar->remove_menu('w3tc_flush');
     // $wp_admin_bar->remove_menu('w3tc_flush_objectcache');
-    // $wp_admin_bar->remove_menu('new-elementor_library');
+    $wp_admin_bar->remove_menu('new-elementor_library');
     // $wp_admin_bar->remove_menu('w3tc_flush_pgcache');
     $wp_admin_bar->remove_menu('autoptimize-cache-info');
     $wp_admin_bar->remove_menu('autoptimize-delete-cache');
