@@ -488,7 +488,8 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
         </style>
         <script>
         jQuery(function(){
-    
+            jQuery("#uip-admin-menu .uip-body-font").last().remove()
+
             if(jQuery(".yith-plugin-fw-tab-element").last().text()=="Help")  jQuery(".yith-plugin-fw-tab-element").last().remove();
             })
         </script>';
