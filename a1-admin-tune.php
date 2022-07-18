@@ -509,6 +509,7 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
         remove_submenu_page('pixelyoursite', 'pixelyoursite_report');
         remove_submenu_page('pixelyoursite', 'pixelyoursite_licenses');
         remove_menu_page('qlwcdc');
+        remove_menu_page('Portfolio');
         remove_submenu_page('oceanwp-panel', 'edit.php?post_type=oceanwp_library');
         remove_submenu_page('oceanwp-panel', 'oceanwp_library');
         remove_submenu_page('oceanwp-panel', 'oceanwp-panel-scripts');
