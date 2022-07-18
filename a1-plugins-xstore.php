@@ -67,7 +67,6 @@ function _designs()
 
         [class*="column-"] img {
             max-width: 100%;
-            height: 15rem;
         }
 
         a.designs_btn {
@@ -94,6 +93,7 @@ function _designs()
 
             .column-3 {
                 width: 24%;
+                padding: 10px;
             }
 
             .column-4 {
