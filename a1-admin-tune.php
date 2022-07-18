@@ -54,6 +54,9 @@ if (defined('DOING_AJAX') && DOING_AJAX) {
 
 
 if (WAAS1_RESTRICTION_GROUP_ID != 1) {
+    add_action('admin_menu', function () {
+        remove_menu_page('XStore');
+    }, 9999);
 
     function wp_custom_css()
     {
