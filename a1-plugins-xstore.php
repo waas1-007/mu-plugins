@@ -417,7 +417,7 @@ function shah_import_home($id)
     update_post_meta($post_id, '_edit_lock', time());
     update_post_meta($post_id, '_elementor_template_type', 'wp-page');
     update_post_meta($post_id, '_elementor_version', '3.6.7');
-    update_post_meta($post_id, '_wp_page_template', 'default');
+    update_post_meta($post_id, '_wp_page_template', 'elementor_header_footer');
     update_post_meta($post_id, '_elementor_edit_mode', 'builder');
     update_post_meta($post_id, '_elementor_data', maybe_serialize(json_encode($content['content'], JSON_UNESCAPED_UNICODE)));
     update_option('page_on_front', $post_id);
