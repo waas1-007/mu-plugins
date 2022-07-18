@@ -504,6 +504,7 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
     {
         remove_submenu_page('options-general.php', 'uip-styles');
         remove_submenu_page('options-general.php', 'uip-settings');
+        remove_menu_page('edit.php?post_type=etheme_portfolio');
         remove_submenu_page('tools.php', 'action-scheduler');
         remove_submenu_page('index.php', 'update-core.php');
         remove_submenu_page('rank-math', 'rank-math-status');
