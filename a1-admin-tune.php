@@ -492,23 +492,22 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
             if(jQuery(".yith-plugin-fw-tab-element").last().text()=="Help")  jQuery(".yith-plugin-fw-tab-element").last().remove();
             })
         </script>';
-        
     }
     add_action('admin_head', 'wp_custom_css');
-
-    add_filter('login_title', function ($login_title) {
-        return str_replace(array(' &lsaquo;', ' &#8212; WordPress', __('WordPress'), ' &#8212; ووردبريس', 'ووردبريس'), array(' &lsaquo;', ''), $login_title);
-    });
-
-
-    add_filter('admin_title', function ($admin_title) {
-        return str_replace(array(' &lsaquo;', ' &#8212; WordPress', ('WordPress'), ' &lsaquo;', ' &#8212; ووردبريس'), array(' &lsaquo;', ''), $admin_title);
-    });
 
 
     function cs_add_remove_otherpage_menus()
     {
-
+        remove_submenu_page('options-general.php', 'uip-styles');
+        remove_submenu_page('options-general.php', 'uip-settings');
+        remove_submenu_page('tools.php', 'action-scheduler');
+        remove_submenu_page('index.php', 'update-core.php');
+        remove_submenu_page('rank-math', 'rank-math-status');
+        remove_submenu_page('woocommerce', 'wc-status');
+        remove_submenu_page('yith_plugin_panel', 'yith_system_info');
+        remove_submenu_page('yith_plugin_panel', 'yith_plugins_activation');
+        remove_submenu_page('pixelyoursite', 'pixelyoursite_report');
+        remove_submenu_page('pixelyoursite', 'pixelyoursite_licenses');
         remove_menu_page('qlwcdc');
         remove_submenu_page('oceanwp-panel', 'edit.php?post_type=oceanwp_library');
         remove_submenu_page('oceanwp-panel', 'oceanwp_library');
@@ -563,45 +562,62 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
         return $tabs_array;
     }
 
-    //change register link
-    // add_filter('register_url', 'custom_register_url');
-    // function custom_register_url($register_url)
-    // {
-    //     $register_url = 'https://shahbandr.com/pricing/';
-    //     return $register_url;
-    // }
+    add_action('admin_init', function () {
+
+        $skip_links = [
+            'theme-install.php',
+            'plugin-install.php',
+            'update-core.php'
+        ];
+        $skip_pages = [
+            'uip-styles',
+            'uip-settings',
+            'rank-math-status',
+            'wc-status',
+            'yith_system_info',
+            'pixelyoursite_licenses',
+        ];
+
+        if (
+            in_array(basename($_SERVER['DOCUMENT_URI']), $skip_links) or
+            (basename($_SERVER['DOCUMENT_URI']) == 'themes.php' and $_GET['action'] == 'delete') or
+            (isset($_GET['page']) and in_array($_GET['page'], $skip_pages))
+        ) {
+            wp_redirect(admin_url('admin.php?page=uip-overview'));
+            exit;
+        }
+    }, 9999, 99);
+    add_filter('woocommerce_get_sections_products', function ($sections) {
+        unset($sections['download_urls']);
+
+        return $sections;
+    }, 20);
+
+    add_filter('woocommerce_settings_tabs_array', function ($settings_tabs) {
+        unset($settings_tabs['wts_settings']);
+
+        return $settings_tabs;
+    }, 50);
+
+    add_filter('site_transient_update_plugins', '__return_false');
+    add_filter('pre_site_transient_update_plugins', create_function('$a', "return null;"));
 
 
-    //Fb code Type1
-    // function add_section_main_subsection_facebook_custom($section_ids)
-    // {
+    add_filter('auto_update_plugin', '__return_false');
 
-    //     add_settings_field(
-    //         'wgact_plugin_subsection_facebook_custom_opening_div',
-    //         esc_html__(
-    //             'كود التحقق من النطاق Facebook domain verification code',
-    //             'woocommerce-google-adwords-conversion-tracking-tag'
-    //         ),
-    //         'cs_fb_setting_callback_function',
-    //         'wpm_plugin_options_page',
-    //         $section_ids['settings_name']
-    //     );
-    // }
+    add_filter('auto_update_theme', '__return_false');
+    remove_action('load-update-core.php', 'wp_update_plugins');
 
-    // function cs_fb_setting_callback_function()
-    // {
-
-    //     $cs_wgact_plugin_options = get_option('wgact_plugin_options');
-    //     $custom_tracking_code = $cs_wgact_plugin_options['facebook']['custom_tracking_code'];
-
-    //     echo "<input type='text' id='wgact_plugin_facebook_custom_tracking_code' name='wgact_plugin_options[facebook][custom_tracking_code]' value='" . $custom_tracking_code . "' size='40'>";
-
-    //     echo '<br>';
-    //     echo htmlspecialchars('مثال على محتوى الكود كامل <meta name="facebook-domain-verification" content="ylpqp4rux0jm8ez0zhpwknuok0rbcm" />');
-    //     echo '<br>';
-    //     esc_html_e('مثال على القيمة التى يتم اضافتها بالاعلى ylpqp4rux0jm8ez0zhpwknuok0rbcm', 'woocommerce-google-adwords-conversion-tracking-tag');
-    // }
-    // create custom plugin settings menu
+    add_action('admin_head', function () {
+        echo '<style>
+    .theme.add-new-theme ,span.theme-count,span.plugin-count,
+    .themes-php a.hide-if-no-js.page-title-action,
+    a.button.delete-theme,
+    .plugins-php a.page-title-action{
+        display: none;
+    }
+      </style>';
+    });
     add_action('admin_menu', 'cs_create_facebook_menu');
     function cs_create_facebook_menu()
     {
