@@ -30,15 +30,29 @@ if (get_stylesheet() == 'xstore') {
 }
 function _designs()
 {
-    if (isset($_GET['enable']) and $_GET['enable']) {
-        shah_wdigets_import_data($_GET['enable']);
-        shah_import_customizer($_GET['enable']);
-        shah_import_home($_GET['enable']);
-        wp_redirect(home_url());
-        exit;
+    $plan = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plans/' . WAAS1_RESTRICTION_GROUP_ID . '.json'), true);
+    if (!isset($plan['designs'])) {
+        $plan['designs'] = [];
     }
+
     $designs = scandir(WPMU_PLUGIN_DIR . '/designs');
     $designs = array_diff($designs, ['.', '..']);
+
+    if (WAAS1_RESTRICTION_GROUP_ID == 1) {
+
+        $plan['designs'] = $designs;
+    }
+
+
+    if (isset($_GET['enable']) and $_GET['enable']) {
+        if (in_array($_GET['enable'], $plan['designs'])) {
+            shah_wdigets_import_data($_GET['enable']);
+            shah_import_customizer($_GET['enable']);
+            shah_import_home($_GET['enable']);
+            wp_redirect(home_url());
+            exit;
+        }
+    }
 
 ?>
     <style>
@@ -138,7 +152,15 @@ function _designs()
         <?php foreach ($designs as $key => $design) { ?>
             <div class="column-3">
                 <img src="<?= content_url("/mu-plugins/designs/$design/screenshot.png") ?>">
-                <a href="<?= admin_url("options-general.php?page=designs&enable=$design") ?>" class="designs_btn">تثبيت</a>
+                <?php if (in_array($design, $plan['designs'])) : ?>
+                    <a href="<?= admin_url("options-general.php?page=designs&enable=$design") ?>" class="designs_btn">تثبيت</a>
+                <?php else : ?>
+                    <a href="#" class="button button-primary" style="    pointer-events: none;
+                                    cursor: default;
+                                    background: #ddd;
+                                    color: red;
+                                    padding: 0;">غير متوفر في باقتك</a>
+                <?php endif; ?>
             </div>
         <?php  } ?>
 
