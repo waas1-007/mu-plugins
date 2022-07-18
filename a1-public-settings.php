@@ -26,16 +26,18 @@ add_action('wp_before_admin_bar_render', function () {
     $wp_admin_bar->add_menu(
         array(
             'title'     => 'مسح الكاش',
-            'href'  => admin_url('?remove_cash=remove_cash'),
+            'href'  => '?remove_cash=remove_cash',
         )
     );
 
 });
-add_action('admin_init', function () {
+add_action('init', function () {
     if (isset($_GET['remove_cash']) and $_GET['remove_cash']) {
         if (function_exists('w3tc_flush_all')) {
             w3tc_flush_all();
         }
+        wp_redirect($_SERVER['HTTP_REFERER']);
+        exit;
     }
 });
 
