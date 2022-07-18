@@ -1,5 +1,28 @@
 <?php
 
+// Exit if accessed directly.
+if (!defined('ABSPATH')) { //this is for secuirty
+    exit;
+}
+
+//do not run if user is not in back-end
+if (!is_admin()) {
+    return;
+} //this is for performance
+
+
+//if the call is from "wp-cli" don't run the code below
+if (defined('WP_CLI') && WP_CLI) {
+    return;
+} //this is important that controlpanel can see all the plugins
+
+
+
+//do not run if the call is ajax
+if (defined('DOING_AJAX') && DOING_AJAX) {
+    return;
+} //we do not need to run this in javascript ajax call = This is for perforamnce
+
 if (get_stylesheet() == 'xstore') {
     add_action('admin_menu', function () {
         add_options_page('التصميمات', 'التصميمات ', 'manage_options', 'designs', '_designs');
