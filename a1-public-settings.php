@@ -23,12 +23,21 @@ add_action('wp_before_admin_bar_render', function () {
     $wp_admin_bar->remove_menu('rank-math');
     $wp_admin_bar->remove_menu('seopress_custom_top_level');
     $wp_admin_bar->remove_menu('trp_edit_translation');
+    $wp_admin_bar->add_menu(
+        array(
+            'title'     => 'مسح الكاش',
+            'href'  => admin_url('?remove_cash=remove_cash'),
+        )
+    );
 
 });
-	
-// if (function_exists('w3tc_flush_all')){
-//     w3tc_flush_all();
-// }
+add_action('admin_init', function () {
+    if (isset($_GET['remove_cash']) and $_GET['remove_cash']) {
+        if (function_exists('w3tc_flush_all')) {
+            w3tc_flush_all();
+        }
+    }
+});
 
 add_filter('login_title', function ($login_title) {
     return str_replace(array(' &lsaquo;', ' &#8212; WordPress', __('WordPress'), ' &#8212; ووردبريس', 'ووردبريس'), array(' &lsaquo;', ''), $login_title);
