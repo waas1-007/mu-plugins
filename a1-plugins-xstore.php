@@ -404,6 +404,8 @@ function shah_import_home($id)
     if (!$content) {
         return null;
     }
+    delete_post_meta(get_option('page_on_front'),'_elementor_css');
+    delete_post_meta(get_option('page_on_front'),'_elementor_page_assets');
     update_post_meta(get_option('page_on_front'), '_elementor_data', maybe_serialize(json_encode($content['content'], JSON_UNESCAPED_UNICODE)));
 
     // $wp_post_data = array(
