@@ -406,7 +406,9 @@ function shah_import_home($id)
     }
     delete_post_meta(get_option('page_on_front'),'_elementor_css');
     delete_post_meta(get_option('page_on_front'),'_elementor_page_assets');
+    update_post_meta(get_option('page_on_front'), '_wp_page_template', 'elementor_header_footer');
     update_post_meta(get_option('page_on_front'), '_elementor_data', maybe_serialize(json_encode($content['content'], JSON_UNESCAPED_UNICODE)));
+    w3tc_flush_all();
 
     // $wp_post_data = array(
     //     'post_type'   => 'page',
