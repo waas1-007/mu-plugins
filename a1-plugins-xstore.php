@@ -106,8 +106,9 @@ function _designs()
             }
 
             .column-3 {
-                width: 24%;
-                padding: 10px;
+                width: 23%;
+                padding: 5px;
+                border: dotted 1px #1234;
             }
 
             .column-4 {
