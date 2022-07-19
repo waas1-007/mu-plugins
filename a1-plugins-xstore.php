@@ -46,9 +46,9 @@ function _designs()
 
     if (isset($_GET['enable']) and $_GET['enable']) {
         if (in_array($_GET['enable'], $plan['designs'])) {
-            shah_wdigets_import_data($_GET['enable']);
-            shah_import_customizer($_GET['enable']);
             shah_import_home($_GET['enable']);
+            shah_import_customizer($_GET['enable']);
+            shah_wdigets_import_data($_GET['enable']);
             wp_redirect(home_url());
             exit;
         }
