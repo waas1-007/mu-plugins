@@ -392,7 +392,7 @@ function shah_import_customizer($id)
 
         foreach ($data['options'] as $option_key => $option_value) {
             if (is_array($option_value)) {
-                $option_value = serialize($option_value);
+                $option_value = maybe_serialize($option_value);
             }
             update_option($option_key, $option_value);
         }
