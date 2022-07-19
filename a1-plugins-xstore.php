@@ -404,23 +404,24 @@ function shah_import_home($id)
     if (!$content) {
         return null;
     }
+    update_post_meta(get_option('page_on_front'), '_elementor_data', maybe_serialize(json_encode($content['content'], JSON_UNESCAPED_UNICODE)));
 
-    $wp_post_data = array(
-        'post_type'   => 'page',
-        'post_title'  => $content['title'],
-        'post_content' => '',
-        'post_status' => 'publish',
+    // $wp_post_data = array(
+    //     'post_type'   => 'page',
+    //     'post_title'  => $content['title'],
+    //     'post_content' => '',
+    //     'post_status' => 'publish',
 
-    );
-    $post_id = wp_insert_post($wp_post_data);
+    // );
+    // $post_id = wp_insert_post($wp_post_data);
 
 
-    update_post_meta($post_id, '_edit_lock', time());
-    update_post_meta($post_id, '_elementor_template_type', 'wp-page');
-    update_post_meta($post_id, '_elementor_version', '3.6.7');
-    update_post_meta($post_id, '_wp_page_template', 'elementor_header_footer');
-    update_post_meta($post_id, '_elementor_edit_mode', 'builder');
-    update_post_meta($post_id, '_elementor_data', maybe_serialize(json_encode($content['content'], JSON_UNESCAPED_UNICODE)));
-    update_option('page_on_front', $post_id);
-    update_option('show_on_front', 'page');
+    // update_post_meta($post_id, '_edit_lock', time());
+    // update_post_meta($post_id, '_elementor_template_type', 'wp-page');
+    // update_post_meta($post_id, '_elementor_version', '3.6.7');
+    // update_post_meta($post_id, '_wp_page_template', 'elementor_header_footer');
+    // update_post_meta($post_id, '_elementor_edit_mode', 'builder');
+    // update_post_meta($post_id, '_elementor_data', maybe_serialize(json_encode($content['content'], JSON_UNESCAPED_UNICODE)));
+    // update_option('page_on_front', $post_id);
+    // update_option('show_on_front', 'page');
 }
