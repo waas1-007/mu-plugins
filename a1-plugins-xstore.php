@@ -30,6 +30,7 @@ if (get_stylesheet() == 'xstore') {
 }
 function _designs()
 {
+    $front_design = get_option('front_design');
     $plan = @json_decode(file_get_contents(WPMU_PLUGIN_DIR . '/json/plans/' . WAAS1_RESTRICTION_GROUP_ID . '.json'), true);
     if (!isset($plan['designs'])) {
         $plan['designs'] = [];
@@ -61,6 +62,10 @@ function _designs()
             width: 100%;
         }
 
+        .active {
+            background: #005c9630;
+        }
+
         .row::after {
             content: "";
             clear: both;
@@ -89,7 +94,7 @@ function _designs()
             color: #fff;
             text-decoration: none;
             font-weight: 600;
-            display: block;
+            display: inline-block;
             width: fit-content;
             margin: auto;
         }
@@ -150,20 +155,25 @@ function _designs()
     </style>
     <h1>التصميمات</h1>
     <div class="row">
-        <?php foreach ($designs as $key => $design) { ?>
-            <div class="column-3">
-                <img src="<?= content_url("/mu-plugins/designs/$design/screenshot.png") ?>">
-                <?php if (in_array($design, $plan['designs'])) : ?>
-                    <a href="<?= admin_url("options-general.php?page=designs&enable=$design") ?>" class="designs_btn">تثبيت</a>
-                <?php else : ?>
-                    <a href="#" class="button button-primary" style="    pointer-events: none;
+        <?php foreach ($designs as $key => $design) {
+            if ($settings =file_get_contents(WPMU_PLUGIN_DIR . "/designs/$design/settings.json")) {
+                $settings = json_decode($settings,true)
+        ?>
+                <div class="column-3 <?= $design == $front_design ? 'active' : null ?>">
+                    <img src="<?= content_url("/mu-plugins/designs/$design/screenshot.png") ?>">
+                    <?php if (in_array($design, $plan['designs'])) : ?>
+                        <a href="<?= admin_url("options-general.php?page=designs&enable=$design") ?>" class="designs_btn">تثبيت</a>
+                        <a href="<?= $settings->preview?>" class="designs_btn" target="_blank" style="background: #2d8934;">معاينة</a>
+                    <?php else : ?>
+                        <a href="#" class="button button-primary" style="    pointer-events: none;
                                     cursor: default;
                                     background: #ddd;
                                     color: red;
                                     padding: 0;">غير متوفر في باقتك</a>
-                <?php endif; ?>
-            </div>
-        <?php  } ?>
+                    <?php endif; ?>
+                </div>
+        <?php  }
+        } ?>
 
     </div>
 
@@ -423,6 +433,7 @@ function shah_import_home($id)
     update_post_meta($post_id, '_elementor_edit_mode', 'builder');
     update_post_meta($post_id, '_elementor_data', maybe_serialize(json_encode($content['content'], JSON_UNESCAPED_UNICODE)));
     update_option('page_on_front', $post_id);
+    update_option('front_design', $id);
     update_option('show_on_front', 'page');
     w3tc_flush_all();
 }
