@@ -17,7 +17,6 @@ function update_shah_consumer()
         update_option('shah_consumer_key', $response->consumer_key);
         update_option('shah_consumer_secret', $response->consumer_secret);
         update_option('shah_unique_order_id', $response->unique_order_id);
-        header("location: " . $_SERVER['REQUEST_URI']);
     }
 }
 if (!shah_consumer_key) {

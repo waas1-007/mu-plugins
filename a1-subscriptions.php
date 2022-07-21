@@ -22,7 +22,7 @@ if (defined('DOING_AJAX') && DOING_AJAX) {
     return;
 } //we do not need to run this in javascript ajax call = This is for perforamnce
 
-define('shah_consumer_key', get_option('shah_consumer_key'));
+define('shah_consumer_key', get_option('shah_consumer_key',null));
 define('shah_consumer_secret', get_option('shah_consumer_secret'));
 define('shah_unique_order_id', get_option('shah_unique_order_id') + 1);
 
