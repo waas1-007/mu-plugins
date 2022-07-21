@@ -22,7 +22,7 @@ if (defined('DOING_AJAX') && DOING_AJAX) {
     return;
 } //we do not need to run this in javascript ajax call = This is for perforamnce
 
-define('shah_consumer_key', get_option('shah_consumer_key',null));
+define('shah_consumer_key', get_option('shah_consumer_key', null));
 define('shah_consumer_secret', get_option('shah_consumer_secret'));
 define('shah_unique_order_id', get_option('shah_unique_order_id') + 1);
 
@@ -49,6 +49,7 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
                 ),
             )
         )));
+
         $meta_data = $_subscriptions->line_items[0]->meta_data;
         $pa_select = array_search('pa_select-plan', array_column($meta_data, 'key'));
         $pa_belling = array_search('pa_belling-freq', array_column($meta_data, 'key'));
@@ -63,6 +64,13 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
                 ),
             )
         )));
+        if (isset($_subscriptions->data->status) and $_subscriptions->data->status != 200) {
+            delete_option('shah_consumer_key');
+            delete_option('shah_consumer_secret');
+            delete_option('shah_unique_order_id');
+
+            header("location: " . $_SERVER['REQUEST_URI']);
+        }
         // echo "<pre>";
         // print_r($subscriptions_orders);
         // exit;
@@ -122,10 +130,11 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
             }
 
             @media screen and (max-width: 600px) {
-                .my_account_card{
+                .my_account_card {
                     width: 92%;
 
                 }
+
                 .my_account_pagetable {
                     border: 0;
                 }
@@ -173,14 +182,14 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
         </style>
         <div class="row">
             <div class="my_account_card">
-                <div class="card-body"><?=$meta_data[$pa_select]->display_key . ' ' . $meta_data[$pa_select]->display_value?></div>
+                <div class="card-body"><?= $meta_data[$pa_select]->display_key . ' ' . $meta_data[$pa_select]->display_value ?></div>
             </div>
             <div class="my_account_card">
-                <div class="card-body"><?=$meta_data[$pa_belling]->display_key . ' ' . $meta_data[$pa_belling]->display_value?></div>
+                <div class="card-body"><?= $meta_data[$pa_belling]->display_key . ' ' . $meta_data[$pa_belling]->display_value ?></div>
 
             </div>
             <div class="my_account_card">
-                <div class="card-body">نهاية الاشتراك <?=date('Y-m-d',strtotime($_subscriptions->next_payment_date_gmt))?></div>
+                <div class="card-body">نهاية الاشتراك <?= date('Y-m-d', strtotime($_subscriptions->next_payment_date_gmt)) ?></div>
 
             </div>
         </div>
@@ -207,11 +216,11 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
 
 
             </tbody>
-            
+
         </table>
 
         <div style="width: 100%;text-align: center;">
-                    <a href="https://myshahbandr.com/" target="_blank" style="text-decoration: none;font-size: 1.1rem;padding: 1rem;display: block;width: fit-content;margin: auto;background: #004eee;margin-top: 1rem;color: #fff;border-radius: 1rem;">الحساب</a>
+            <a href="https://myshahbandr.com/" target="_blank" style="text-decoration: none;font-size: 1.1rem;padding: 1rem;display: block;width: fit-content;margin: auto;background: #004eee;margin-top: 1rem;color: #fff;border-radius: 1rem;">الحساب</a>
         </div>
 <?php
 
