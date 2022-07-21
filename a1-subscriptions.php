@@ -29,7 +29,6 @@ define('shah_unique_order_id', get_option('shah_unique_order_id') + 1);
 
 
 
-
 require_once __DIR__ . '/subscriptions/update_key.php';
 
 if (WAAS1_RESTRICTION_GROUP_ID != 1) {
@@ -64,16 +63,7 @@ if (WAAS1_RESTRICTION_GROUP_ID != 1) {
                 ),
             )
         )));
-        if (isset($_subscriptions->data->status) and $_subscriptions->data->status != 200) {
-            delete_option('shah_consumer_key');
-            delete_option('shah_consumer_secret');
-            delete_option('shah_unique_order_id');
-
-            header("location: " . $_SERVER['REQUEST_URI']);
-        }
-        // echo "<pre>";
-        // print_r($subscriptions_orders);
-        // exit;
+ 
 ?>
         <style>
             .my_account_card {
