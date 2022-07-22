@@ -395,6 +395,7 @@ function shah_import_customizer($id)
 
     foreach ($data['mods'] as $key => $val) {
 
+        remove_theme_mod($key);
         set_theme_mod($key, $val);
     }
 
