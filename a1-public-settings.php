@@ -132,3 +132,8 @@ add_action('admin_footer', function () {
 <?php
     }
 });
+
+add_filter( 'style_loader_src', function( $src, $handle ) {
+   
+    return remove_query_arg( 'ver', $src );
+}, 10, 2 );
