@@ -405,6 +405,7 @@ function shah_import_customizer($id)
             if (is_array($option_value)) {
                 $option_value = maybe_serialize($option_value);
             }
+            delete_option($option_key);
             update_option($option_key, $option_value);
         }
     }
