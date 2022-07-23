@@ -156,14 +156,14 @@ function _designs()
     <h1>التصميمات</h1>
     <div class="row">
         <?php foreach ($designs as $key => $design) {
-            if ($settings =file_get_contents(WPMU_PLUGIN_DIR . "/designs/$design/settings.json")) {
-                $settings = json_decode($settings,true)
+            if ($settings = file_get_contents(WPMU_PLUGIN_DIR . "/designs/$design/settings.json")) {
+                $settings = json_decode($settings, true)
         ?>
                 <div class="column-3 <?= $design == $front_design ? 'active' : null ?>">
                     <img src="<?= content_url("/mu-plugins/designs/$design/screenshot.png") ?>">
                     <?php if (in_array($design, $plan['designs'])) : ?>
                         <a href="<?= admin_url("options-general.php?page=designs&enable=$design") ?>" class="designs_btn">تثبيت</a>
-                        <a href="<?= $settings->preview?>" class="designs_btn" target="_blank" style="background: #2d8934;">معاينة</a>
+                        <a href="<?= $settings->preview ?>" class="designs_btn" target="_blank" style="background: #2d8934;">معاينة</a>
                     <?php else : ?>
                         <a href="#" class="button button-primary" style="    pointer-events: none;
                                     cursor: default;
@@ -394,6 +394,7 @@ function shah_import_customizer($id)
     }
 
     foreach ($data['mods'] as $key => $val) {
+        do_action('customize_save_' . $key);
 
         set_theme_mod($key, $val);
     }
@@ -407,6 +408,8 @@ function shah_import_customizer($id)
             update_option($option_key, $option_value);
         }
     }
+    do_action('customize_save_after');
+    do_action('customize_controls_print_styles');
 }
 function shah_import_home($id)
 {
@@ -435,5 +438,17 @@ function shah_import_home($id)
     update_option('page_on_front', $post_id);
     update_option('front_design', $id);
     update_option('show_on_front', 'page');
-    w3tc_flush_all();
+    if (function_exists('w3tc_flush_all')) {
+        w3tc_flush_all();
+    }
+    if (class_exists('autoptimizeCache'))
+        autoptimizeCache::clearall();
+
+    if (class_exists('W3_Plugin_TotalCacheAdmin')) {
+        $plugin_totalcacheadmin = &w3_instance('W3_Plugin_TotalCacheAdmin');
+        $plugin_totalcacheadmin->flush_all();
+    }
+    global $wp_object_cache;
+
+    $wp_object_cache->flush();
 }
